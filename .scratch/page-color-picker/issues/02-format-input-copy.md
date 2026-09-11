@@ -1,7 +1,7 @@
 # 02 — 查看、转换并复制常用颜色格式
 
 Parent: `../spec.md`
-Status: in-review
+Status: done
 Blocked by: 01 — 从原生 action 完成真实页面像素取色
 
 ## What to build
@@ -17,7 +17,7 @@ Blocked by: 01 — 从原生 action 完成真实页面像素取色
 - [x] AC-04：三种格式从真实扩展界面复制后可实际粘贴且文本一致。
 - [x] AC-05：合法输入转换正确；非法输入显示错误且不覆盖结果。
 - [x] 键盘焦点、状态提示、小尺寸布局可用。
-- [ ] 正式构建、双轴 code-review、真实浏览器证据、门禁报告和可恢复 Git 提交齐全。
+- [x] 正式构建、双轴 code-review、真实浏览器证据、门禁报告和可恢复 Git 提交齐全。
 
 ## Required skills
 
@@ -32,3 +32,5 @@ Blocked by: 01 — 从原生 action 完成真实页面像素取色
 - 正在进行双轴独立 code-review。
 - 初审 Standards Pass；Spec 发现 HEX/RGB 输入与窄视口证据缺口，补验后又发现 HSL 在窄屏省略。
 - 窄屏改为两列格式行并隐藏重复“复制”字样；真实 288×512 CSS viewport 下全文、复制粘贴与非法恢复通过，等待最终复审。
+- 最终双轴复审均 Pass，hard issues=0；门禁 `evidence/ticket-02/gate-report-v4.json` 通过。
+- 实现提交：`b5e82de`；补验提交：`df8bede`；窄屏修复提交：`045afa0`。
