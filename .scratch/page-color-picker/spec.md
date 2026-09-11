@@ -1,6 +1,6 @@
 # 网页取色正式规格
 
-Status: ready-for-agent
+Status: complete
 
 ## Problem Statement
 

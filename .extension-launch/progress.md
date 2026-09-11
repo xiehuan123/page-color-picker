@@ -1,10 +1,10 @@
 # 网页取色：项目进度
 
-当前：本地 0.1.0 候选已实现并以项目专用 Chrome DevTools MCP 从根 `extension/` 完成集中验收，等待最终双轴审查。
+当前：本地 0.1.0 已完成。根 `extension/`、真实 Chrome DevTools MCP 验收、双轴审查、门禁和本地 ZIP 全部通过。
 
 本次做到：在本机使用（provided；暂定值不能替代用户已说明的目标或发布授权）。
 
-接下来：完成 Standards/Spec 独立审查；修复实际缺陷后复验，随后打包本地 ZIP 并关闭本地工单。
+接下来：用户可按 `README.md` 加载 `extension/`；本轮不发布商店、不建立远端。
 
 待你处理：目前没有自动认定的待办；仅在实际遇到必要决定或本人操作时填写。
 
@@ -17,7 +17,7 @@ state.json 仅用于索引。继续前先阅读 spec.md、decisions.md 和当前
 ## 阶段结果
 
 - 本地可试用：已完成，目录 `../extension/`
-- 独立验收：真实场景已通过，门禁 `../evidence/final/gate-report-v3.json`；待代码审查
+- 独立验收：已完成，门禁 `../evidence/final/gate-report-v4.json`；双轴审查均通过
 - 发布材料：本次范围外（未执行）
 - 提交审核：本次范围外（未执行）
 - 正式可安装及首用验证：本地 unpacked 加载和首用已验证；商店发布不在范围

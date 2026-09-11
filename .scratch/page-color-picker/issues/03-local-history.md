@@ -1,7 +1,7 @@
 # 03 — 本机历史、失败边界与本地产物（合并实施票）
 
 Parent: `../spec.md`
-Status: in-review
+Status: done
 Blocked by: 02 — 查看、转换并复制常用颜色格式
 
 Merged from: `04-boundaries-and-polish.md`
@@ -22,7 +22,7 @@ Merged from: `04-boundaries-and-polish.md`
 - [x] AC-07：内部页或无法捕获/注入时给出可恢复反馈且不污染页面。
 - [x] AC-08：`extension/` 对应正式构建，MV3、图标尺寸和最小权限核对通过。
 - [x] 普通公开网页也能从真实 action 完成取色，不依赖 fixture 专用代码。
-- [ ] 正式构建、双轴 code-review、真实浏览器证据、门禁报告和可恢复 Git 提交齐全。
+- [x] 正式构建、双轴 code-review、真实浏览器证据、门禁报告和可恢复 Git 提交齐全。
 
 ## Required skills
 
@@ -36,3 +36,4 @@ Merged from: `04-boundaries-and-polish.md`
 - 已合并完成历史 UI/持久化、受限页恢复、中文 README 与根 `extension/`；最终目录加载后集中 E2E 全部通过。
 - 初审发现历史 Promise 链不合规范且可能在异常后停摆；已改为纯 async/await 显式队列，快速“取色后立即转换”与扩展重载持久化复验通过。
 - 当前指纹 `2bf60d9cd4d7e942a4be4ed2600d23d13cfeb41f8cfa1a884c7dcf01b3e56725`；等待覆盖合并实施和最终 AC 的最终双轴复审。
+- 最终候选 `ef7dfaf` 双轴复审 Standards/Spec 均 Pass，hard issues=0；合并实施票关闭。

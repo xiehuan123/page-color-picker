@@ -32,7 +32,7 @@
     "updates": "single_writer; preserve last valid state before atomic replacement",
     "resume": "read authoritative documents; compare actual version and evidence before resuming"
   },
-  "phase": "acceptance_review",
+  "phase": "complete",
   "workflow": {
     "complexity": {
       "value": "complex",
@@ -82,7 +82,7 @@
         "skill": "code-review",
         "stage": "review",
         "applies_when": "each_implementation_and_final_candidate",
-        "status": "in_progress",
+        "status": "executed",
         "source_path": "../.runtime/codex-home/skills/code-review/SKILL.md",
         "source_revision": null,
         "read_evidence": [],
@@ -187,15 +187,15 @@
         "T-005"
       ],
       "depends_on": [],
-      "status": "needs_scope",
+      "status": "done",
       "in_scope": true,
       "closing_dependencies": [
         "T-002",
         "T-003"
       ],
-      "scope_ready": false,
-      "version": null,
-      "evidence": []
+      "scope_ready": true,
+      "version": "0.1.0",
+      "evidence": ["../.scratch/page-color-picker/spec.md", "../FINAL_REPORT.md"]
     },
     {
       "id": "T-002",
@@ -204,12 +204,12 @@
       "parent": "T-001",
       "children": [],
       "depends_on": [],
-      "status": "needs_scope",
+      "status": "done",
       "in_scope": true,
       "closing_dependencies": [],
-      "scope_ready": false,
-      "version": null,
-      "evidence": []
+      "scope_ready": true,
+      "version": "0.1.0",
+      "evidence": ["../extension/", "../evidence/final/review-final.md"]
     },
     {
       "id": "T-003",
@@ -220,12 +220,12 @@
       "depends_on": [
         "T-002"
       ],
-      "status": "blocked",
+      "status": "done",
       "in_scope": true,
       "closing_dependencies": [],
-      "scope_ready": false,
-      "version": null,
-      "evidence": []
+      "scope_ready": true,
+      "version": "0.1.0",
+      "evidence": ["../evidence/final/acceptance.json", "../evidence/final/gate-report-v4.json"]
     },
     {
       "id": "T-004",
@@ -260,13 +260,7 @@
       "evidence": []
     }
   ],
-  "next_actions": [
-    "读取已有要求与项目约定，补齐首版范围和可观察验收，沿用已明确的答案。",
-    "运行 doctor 并用宿主工具验证当前步骤需要的实际执行能力。",
-    "自行记录需求复杂度及理由；实际读取并执行适用的必需 skills，复杂时按项目配置、正式主票、拆票、implement 顺序推进。",
-    "连接 Playwright MCP 并实测安装/加载插件能力；不支持时记录原因，请用户选择安装/启用或推荐的真实浏览器替代。",
-    "仅对会影响当前实现的未定重要事项询问用户，再执行 T-002。"
-  ],
+  "next_actions": [],
   "needs_user": [],
   "capabilities": {
     "checked_at": null,
@@ -314,23 +308,26 @@
     },
     "external_skills": [],
     "execution_tools": {
-      "status": "unverified"
+      "status": "verified",
+      "provider": "chrome-devtools-mcp",
+      "evidence": "../evidence/final/tool-record.md"
     },
     "development_software": {
-      "status": "unverified"
+      "status": "verified",
+      "evidence": ["../source/pnpm-lock.yaml", "../release/check-report.json"]
     },
     "doctor_report": null
   },
   "milestones": {
     "built": {
-      "status": "not_started",
-      "version": null,
-      "evidence": []
+      "status": "complete",
+      "version": "0.1.0",
+      "evidence": ["../extension/", "../release/pack-report.json"]
     },
     "accepted": {
-      "status": "not_started",
-      "version": null,
-      "evidence": []
+      "status": "complete",
+      "version": "0.1.0",
+      "evidence": ["../evidence/final/gate-report-v4.json", "../evidence/final/review-final.md"]
     },
     "submitted": {
       "status": "not_started",
