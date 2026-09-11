@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "status": "checks_passed",
+  "build_dir": "/Users/xiehuan/Desktop/浏览器插件/page-color-picker/extension",
+  "manifest": {
+    "name": "网页取色",
+    "version": "0.1.0",
+    "description": "从当前网页真实像素取色，并在本机转换、复制和管理近期颜色。",
+    "manifest_version": 3
+  },
+  "errors": [],
+  "warnings": [],
+  "inventory": [
+    {
+      "path": "background.js",
+      "bytes": 1625,
+      "sha256": "655f43e052d24620b63b5d48f97841173537c4964a63562b280223ddefa81f93"
+    },
+    {
+      "path": "icon/128.png",
+      "bytes": 3074,
+      "sha256": "9a51ba4154a72f2d6f3c36a1e018a6c1f3932d2748ba6b63339ce93b0ae870b2"
+    },
+    {
+      "path": "icon/16.png",
+      "bytes": 559,
+      "sha256": "58eddff80c85c1aaf6b6d0b4b65e99e3debacabe93c7083fb3ba2fa67d315236"
+    },
+    {
+      "path": "icon/32.png",
+      "bytes": 916,
+      "sha256": "df3d956fea6bd2a615515c31067cec039e707badb83a9501737572e45bc5e8dd"
+    },
+    {
+      "path": "icon/48.png",
+      "bytes": 1334,
+      "sha256": "3c09dff4ead132afcbb2c6de4ad96d07e02ba4a09a4a7f3bdaa7a69736b638d8"
+    },
+    {
+      "path": "icon/96.png",
+      "bytes": 2366,
+      "sha256": "209c124e64afca9f22663c53ebd16c438abae7ef020e65c989daf9b618b37452"
+    },
+    {
+      "path": "manifest.json",
+      "bytes": 495,
+      "sha256": "d78879ea9ec3c27f166fcf62580a6c8ed4dddffddb742ccbbb08283758c7af90"
+    },
+    {
+      "path": "picker.js",
+      "bytes": 17635,
+      "sha256": "daa65794ff863ccb19f3289e38d013dea8448c9fa9b9af3070fa3c6a1955ed81"
+    }
+  ],
+  "checks_scope": {
+    "performed": [
+      "MV3 基础字段与版本",
+      "manifest 声明的本地资源",
+      "HTML 常见静态资源",
+      "默认语言消息",
+      "图标存在与 PNG 尺寸",
+      "敏感文件与路径",
+      "部分远程执行和开发地址启发式"
+    ],
+    "not_performed": [
+      "完整 Chrome manifest schema 校验",
+      "全部动态依赖分析",
+      "完整安全与隐私审计",
+      "浏览器安装和功能测试",
+      "商店后台检查",
+      "审核或发布"
+    ],
+    "warning_policy": "警告必须由开发者逐项复核；零警告也不代表没有远程代码、隐私问题或功能故障。"
+  }
+}

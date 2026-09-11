@@ -31,6 +31,18 @@ export const PICKER_STYLES = `
   input:focus-visible { outline: 3px solid rgba(37,99,235,.22); border-color: #2563EB; }
   .convert-button { border-color: #2563EB; background: #2563EB; color: #fff; }
   .convert-button:hover { background: #1D4ED8; }
+  .history { margin-top: 14px; padding-top: 14px; border-top: 1px solid #EAECF0; }
+  .history-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+  h3 { margin: 0; color: #344054; font-size: 12px; line-height: 1.4; }
+  .clear-history { min-height: 30px; padding: 0 8px; border: 0; color: #667085; font-size: 11px; }
+  .clear-history[hidden] { display: none; }
+  .history-list { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 6px; }
+  .history-item { display: grid; grid-template-columns: minmax(0,1fr) 30px; overflow: hidden; border: 1px solid #EAECF0; border-radius: 9px; background: #F9FAFB; }
+  .history-select { display: flex; min-width: 0; min-height: 36px; align-items: center; gap: 7px; padding: 0 8px; border: 0; border-radius: 0; background: transparent; }
+  .history-select code { font-size: 11px; }
+  .history-dot { width: 14px; height: 14px; flex: 0 0 auto; border: 1px solid rgba(16,24,40,.16); border-radius: 5px; background: var(--history-color); }
+  .history-remove { min-height: 36px; padding: 0; border: 0; border-left: 1px solid #EAECF0; border-radius: 0; background: transparent; color: #667085; font-size: 17px; font-weight: 400; }
+  .history-empty { grid-column: 1/-1; margin: 0; padding: 8px 0; color: #98A2B3; font-size: 12px; }
   .status { min-height: 18px; margin: 10px 0 0; color: #667085; font-size: 12px; }
   .status[data-tone="success"] { color: #067647; }
   .status[data-tone="error"] { color: #B42318; }

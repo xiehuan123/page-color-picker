@@ -1,8 +1,8 @@
 # 05 — 独立验证最终本地候选
 
 Parent: `../spec.md`
-Status: ready-for-agent
-Blocked by: 04 — 完成失败恢复、隐私边界与交付打磨
+Status: in-review
+Blocked by: 03 — 本机历史、失败边界与本地产物（合并实施票）
 
 ## What to build
 
@@ -25,4 +25,4 @@ Blocked by: 04 — 完成失败恢复、隐私边界与交付打磨
 
 ## Work log
 
-等待 04。
+复用合并实施票在同一最终指纹上的集中真实操作，不为工单编号重复。根 `extension/` 已安装；11 个必需真实场景的 gate v3 通过；`FINAL_REPORT.md` 已在审查前写为“待独立双轴审查”草稿。等待覆盖完整差异与全部 AC 的 Standards/Spec 审查。

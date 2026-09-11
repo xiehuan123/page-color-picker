@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "gate_passed": true,
+  "candidate_fingerprint_sha256": "64750f6e8f2c8a1106b6568344fc10e36cda3c45d3c528dc0453f0ac47bc5443",
+  "required_scenarios": [
+    "escape_cancel",
+    "extension_reload",
+    "format_copy_paste",
+    "history_management",
+    "install",
+    "native_entry",
+    "primary_flow",
+    "public_page",
+    "reopen",
+    "restricted_page",
+    "storage_privacy"
+  ],
+  "checked_artifacts": 22,
+  "state_updated": false,
+  "claims_authenticated": false,
+  "errors": [],
+  "message": "仅核对真实验收报告的完整性、证据可核查性和版本对应；不公证操作真实性，不修改项目状态。"
+}

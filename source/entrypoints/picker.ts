@@ -2,6 +2,8 @@ import { formatHex, formatHsl, formatRgb, type RgbaColor } from '../domain/color
 import { mapViewportPoint } from '../domain/pixel';
 import { copyText } from '../adapters/clipboard';
 import { parseCssColor } from '../adapters/css-color';
+import { loadRecentColors, saveRecentColors } from '../adapters/recent-colors-storage';
+import { addRecentColor, clearRecentColors, removeRecentColor } from '../domain/history';
 import { PICKER_STYLES } from '../ui/picker-styles';
 import { createResultPanel, type ColorFormat, type ResultPanelView } from '../ui/result-panel';
 
@@ -157,6 +159,32 @@ function makeController(): PickerController {
       const showResult = (color: RgbaColor): void => {
         stage.remove();
         let view: ResultPanelView;
+        let history: RgbaColor[] = [];
+        let historyLoaded = false;
+        let historyQueue = Promise.resolve();
+        const updateHistory = (transform: (current: RgbaColor[]) => RgbaColor[], message?: string): void => {
+          historyQueue = historyQueue.then(async () => {
+            if (!historyLoaded) {
+              try {
+                history = await loadRecentColors();
+              } catch {
+                history = [];
+              }
+              historyLoaded = true;
+            }
+            history = transform(history);
+            view.renderHistory(history);
+            try {
+              await saveRecentColors(history);
+              if (message) view.setStatus(message, 'success');
+            } catch {
+              view.setStatus('近期颜色暂时无法保存', 'error');
+            }
+          });
+        };
+        const remember = (nextColor: RgbaColor, message?: string): void => {
+          updateHistory((current) => addRecentColor(current, nextColor), message);
+        };
         const handleCopy = async (format: ColorFormat, text: string): Promise<void> => {
           try {
             const method = await copyText(text);
@@ -177,11 +205,18 @@ function makeController(): PickerController {
               return;
             }
             view.updateColor(parsed);
-            view.setStatus('已转换，可点击格式复制', 'success');
+            remember(parsed, '已转换并保存到近期颜色');
           },
+          onHistorySelect: (selected) => {
+            view.updateColor(selected);
+            remember(selected, '已切换到近期颜色');
+          },
+          onHistoryDelete: (selected) => updateHistory((current) => removeRecentColor(current, selected), '已删除近期颜色'),
+          onHistoryClear: () => updateHistory(() => clearRecentColors(), '已清空近期颜色'),
         });
         shadow.append(view.element);
         view.element.querySelector<HTMLButtonElement>('[data-copy="HEX"]')?.focus();
+        remember(color);
       };
 
       const onClick = (event: MouseEvent): void => {

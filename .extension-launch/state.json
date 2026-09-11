@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "created_at": "2026-09-11T14:49:33+00:00",
-  "updated_at": "2026-09-11T14:49:33+00:00",
+  "updated_at": "2026-09-12T17:30:00+08:00",
   "project": {
     "name": "网页取色",
     "root": "..",
@@ -32,7 +32,7 @@
     "updates": "single_writer; preserve last valid state before atomic replacement",
     "resume": "read authoritative documents; compare actual version and evidence before resuming"
   },
-  "phase": "discovery",
+  "phase": "acceptance_review",
   "workflow": {
     "complexity": {
       "value": "complex",
@@ -42,7 +42,11 @@
       "decision_owner": "lead_agent"
     },
     "default_e2e_provider": "playwright-mcp",
-    "browser_choice": null,
+    "browser_choice": {
+      "selected_provider": "chrome-devtools-mcp",
+      "status": "approved",
+      "evidence": "../run-inputs/browser-choice/user-decision.md"
+    },
     "required_skill_stages": [
       {
         "skill": "chrome-extensions",
@@ -144,22 +148,28 @@
     ],
     "complex_chain_required_when": "complex_project",
     "parent_ticket": {
-      "status": "not_published",
-      "path_or_url": null,
-      "evidence": []
+      "status": "published_local",
+      "path_or_url": "../.scratch/page-color-picker/spec.md",
+      "evidence": ["../records/SKILL_CALLS.md"]
     },
     "authoritative_artifacts": {
-      "spec": null,
-      "parent_ticket": null,
-      "implementation_tickets": [],
+      "spec": "../.scratch/page-color-picker/spec.md",
+      "parent_ticket": "../.scratch/page-color-picker/spec.md",
+      "implementation_tickets": [
+        "../.scratch/page-color-picker/issues/01-native-pixel-picker.md",
+        "../.scratch/page-color-picker/issues/02-format-input-copy.md",
+        "../.scratch/page-color-picker/issues/03-local-history.md",
+        "../.scratch/page-color-picker/issues/04-boundaries-and-polish.md",
+        "../.scratch/page-color-picker/issues/05-independent-acceptance.md"
+      ],
       "paths_relative_to": "project_root",
       "produced_by_required_skills": true
     },
     "ticket_policy": "lead_agent_decides; native skill artifacts are authoritative; publish parent before decomposition; explicit file/module ownership; dependencies before implement; triage only for external feedback or existing tickets; independent review and real E2E"
   },
   "spec": {
-    "path": "spec.md",
-    "status": "awaiting_to_spec",
+    "path": "../.scratch/page-color-picker/spec.md",
+    "status": "published_local",
     "role": "coordination_pointer"
   },
   "decisions_path": "decisions.md",

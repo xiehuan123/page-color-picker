@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "candidate": {
+    "fingerprint_sha256": "64750f6e8f2c8a1106b6568344fc10e36cda3c45d3c528dc0453f0ac47bc5443",
+    "files": [
+      {"path":"background.js","sha256":"655f43e052d24620b63b5d48f97841173537c4964a63562b280223ddefa81f93"},
+      {"path":"icon/128.png","sha256":"9a51ba4154a72f2d6f3c36a1e018a6c1f3932d2748ba6b63339ce93b0ae870b2"},
+      {"path":"icon/16.png","sha256":"58eddff80c85c1aaf6b6d0b4b65e99e3debacabe93c7083fb3ba2fa67d315236"},
+      {"path":"icon/32.png","sha256":"df3d956fea6bd2a615515c31067cec039e707badb83a9501737572e45bc5e8dd"},
+      {"path":"icon/48.png","sha256":"3c09dff4ead132afcbb2c6de4ad96d07e02ba4a09a4a7f3bdaa7a69736b638d8"},
+      {"path":"icon/96.png","sha256":"209c124e64afca9f22663c53ebd16c438abae7ef020e65c989daf9b618b37452"},
+      {"path":"manifest.json","sha256":"d78879ea9ec3c27f166fcf62580a6c8ed4dddffddb742ccbbb08283758c7af90"},
+      {"path":"picker.js","sha256":"daa65794ff863ccb19f3289e38d013dea8448c9fa9b9af3070fa3c6a1955ed81"}
+    ]
+  },
+  "environment": {
+    "automation_provider": "chrome-devtools-mcp",
+    "browser_name": "HeadlessChrome",
+    "browser_version": "153.0.0.0",
+    "extension_id": "khiklbdcghcjmlaefolhmbclijkegnjb",
+    "installation_type": "unpacked",
+    "loaded_directory": "/Users/xiehuan/Desktop/浏览器插件/page-color-picker/extension"
+  },
+  "browser_choice": {
+    "default_provider": "playwright-mcp",
+    "selected_provider": "chrome-devtools-mcp",
+    "reason": "用户明确选择项目专用、隔离 profile 且支持扩展安装和 action 触发的 Chrome DevTools MCP。",
+    "user_decision": {"status":"approved","evidence_path":"user-decision.md"}
+  },
+  "required_scenarios": ["install","native_entry","primary_flow","escape_cancel","format_copy_paste","history_management","reopen","extension_reload","storage_privacy","restricted_page","public_page"],
+  "scenarios": [
+    {
+      "id":"install","required":true,"status":"passed","method":"real_browser_tool",
+      "steps":["用 install_extension 加载根目录 extension/","用 list_extensions 核对名称、版本、启用状态和 ID"],
+      "expected":"最终交付目录直接作为 unpacked 扩展加载。","actual":"网页取色 v0.1.0 Enabled，ID khiklbdcghcjmlaefolhmbclijkegnjb。",
+      "artifactPaths":["tool-record.md"]
+    },
+    {
+      "id":"native_entry","required":true,"status":"passed","method":"real_browser_tool","entry_kind":"native_action",
+      "steps":["打开 fixture 普通网页","trigger_extension_action","读取页面快照并截图"],
+      "expected":"原生 action 进入中文取色状态。","actual":"实际页面出现移动预览、点击选色、Esc 取消提示。",
+      "artifactPaths":["picker-start.snapshot.txt","picker-start.png","tool-record.md"]
+    },
+    {
+      "id":"primary_flow","required":true,"status":"passed","method":"real_browser_tool",
+      "steps":["原生 action 启动","按真实 #solid-red 中心坐标操作扩展实际取色层","读取三格式与历史"],
+      "expected":"网页像素精确成为当前色并加入本机历史。","actual":"#EF4444、rgb(239, 68, 68)、hsl(0, 84%, 60%)，历史首项 #EF4444。",
+      "artifactPaths":["pixel-red-and-history.json","tool-record.md"]
+    },
+    {
+      "id":"escape_cancel","required":true,"status":"passed","method":"real_browser_tool",
+      "steps":["空历史下启动取色后按 Escape","已有两条历史时再次启动后按 Escape","读取页面与 storage"],
+      "expected":"覆盖层清理、页面恢复且取消不新增历史。","actual":"hostPresent=false、页面元素仍存在；前后历史分别保持 0 和 2。",
+      "artifactPaths":["escape-page-state.json","escape-storage-state.json","escape-history-unchanged.json","tool-record.md"]
+    },
+    {
+      "id":"format_copy_paste","required":true,"status":"passed","method":"real_browser_tool",
+      "steps":["点击真实 HEX 复制按钮","清空并聚焦 fixture 普通输入框","Shift+Insert 粘贴"],
+      "expected":"真实剪贴板文本与面板一致。","actual":"粘贴 #EF4444，记录 method=clipboard-api。票 02 对同一复制实现另已实测 RGB/HSL。",
+      "artifactPaths":["copy-paste-hex.json","tool-record.md"]
+    },
+    {
+      "id":"history_management","required":true,"status":"passed","method":"real_browser_tool",
+      "steps":["真实像素写入红色","转换写入蓝色","点击红色历史项复用","单删蓝色","清空"],
+      "expected":"最新置顶、完整 RGBA 去重、单删和清空正确。","actual":"顺序 #0EA5E9/#EF4444 后复用为 #EF4444/#0EA5E9 且仍为 2 条；单删剩红色；清空显示空状态。12 条上限由纯领域测试覆盖。",
+      "artifactPaths":["history-convert-latest.json","history-dedupe-reorder.json","history-delete-one.json","history-clear.json","history-reopen.png","tool-record.md"]
+    },
+    {
+      "id":"reopen","required":true,"status":"passed","method":"real_browser_tool",
+      "steps":["关闭面板","再次从原生 action 进入并选同一真实像素","读取历史"],
+      "expected":"跨面板会话恢复历史且不重复。","actual":"恢复 #EF4444/#0EA5E9，重复红色仍为 2 条。",
+      "artifactPaths":["history-reopen.json","history-reopen.png","tool-record.md"]
+    },
+    {
+      "id":"extension_reload","required":true,"status":"passed","method":"real_browser_tool",
+      "steps":["reload_extension","重新载入网页","从 action 取真实红色","读取历史"],
+      "expected":"扩展关闭/重载后 storage.local 历史仍在。","actual":"重载后恢复 #EF4444/#0EA5E9，顺序和数量正确。",
+      "artifactPaths":["history-extension-reload.json","tool-record.md"]
+    },
+    {
+      "id":"storage_privacy","required":true,"status":"passed","method":"real_browser_tool",
+      "steps":["所有写入均经实际产品 UI","清空后从 service worker 只读 storage.local.get(null)"],
+      "expected":"只持久化颜色数组，不保存截图或页面内容。","actual":"唯一 key 为 recentColors，值为 []；源码/产物扫描无网络调用。",
+      "artifactPaths":["storage-after-clear.json","tool-record.md"]
+    },
+    {
+      "id":"restricted_page","required":true,"status":"passed","method":"real_browser_tool",
+      "steps":["选择 about:blank","trigger_extension_action","读取 action badge/title 与页面节点"],
+      "expected":"给出可恢复中文提示且不污染受限页面。","actual":"红色 ! badge；title 指示切换普通网页重试；页面无扩展宿主。",
+      "artifactPaths":["restricted-action-feedback.json","restricted-page-state.json","tool-record.md"]
+    },
+    {
+      "id":"public_page","required":true,"status":"passed","method":"real_browser_tool",
+      "steps":["打开 https://example.com/","从原生 action 启动","操作实际取色层","读取结果与 action 状态"],
+      "expected":"普通公开网页无需 fixture 代码即可取色，并从错误状态恢复。","actual":"得到 #EEEEEE / rgb(238, 238, 238) / hsl(0, 0%, 93%)；badge 清空、title 恢复。",
+      "artifactPaths":["public-page-flow-v3.json","public-page-result.png","action-recovered-on-public-page.json","tool-record.md"]
+    }
+  ]
+}

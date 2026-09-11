@@ -27,3 +27,8 @@
 | 2026-09-12 | `diagnosing-bugs` | 票 02 Spec 证据缺口 | 真实输入 HEX/RGB 均转换通过；360×640×2 且 zoom 125% 下布局边界/控件尺寸通过并截图 | 已执行 |
 | 2026-09-12 | `diagnosing-bugs` | 票 02 Spec 复审发现窄屏 HSL 被省略 | 两列窄屏布局；相同真实视口下 HSL `scrollWidth=clientWidth`、无 ellipsis；复制粘贴与非法恢复复验通过 | 已执行 |
 | 2026-09-12 | `code-review` | 票 02 最终候选 `045afa0`，基线 `ae7ce37` | 两个独立代理：Standards Pass、Spec Pass，hard issues 均为 0；当前指纹门禁通过 | 已执行，票 02 通过 |
+| 2026-09-12 | `tdd` | 票 03 近期颜色领域状态 | 缺少模块的真实红测试；实现后置顶、RGBA 去重、12 条上限、单删/清空和损坏数据清洗 3 组通过 | 已执行（票 03） |
+| 2026-09-12 | `chrome-extensions` + `implement` | 票 03 `storage.local` 持久化和历史 UI | 仅保存规范化 RGBA 数组；串行化读改写，避免初次加载与快速转换竞态；不保存截图 | 进行中 |
+| 2026-09-12 | `browser-extension-launch` + `chrome-extensions` + `implement` | 合并票 03/04 与最终候选 | 根 `extension/` 正式构建；历史、受限页、公开网页、说明/隐私/权限、最终验收集中完成 | 已执行，待双轴审查 |
+| 2026-09-12 | `ui-designer` | 历史列表和管理状态 | 两列色块、可访问复用/删除名称、清空/空状态、面板滚动边界；真实截图验证 | 已执行（合并票） |
+| 2026-09-12 | `browser-extension-launch` acceptance | 最终根 `extension/` 指纹 `64750f6…5443` | 独立 Chrome DevTools MCP 安装；11 个真实必需场景、22 份证据，gate v3 通过 | 已执行，待审查 |

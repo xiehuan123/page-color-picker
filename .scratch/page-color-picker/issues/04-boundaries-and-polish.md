@@ -1,7 +1,7 @@
 # 04 — 完成失败恢复、隐私边界与交付打磨
 
 Parent: `../spec.md`
-Status: ready-for-agent
+Status: merged
 Blocked by: 03 — 管理并重开本机近期颜色
 
 ## What to build
@@ -25,4 +25,4 @@ Blocked by: 03 — 管理并重开本机近期颜色
 
 ## Work log
 
-等待 03。
+按用户 2026-09-12 继续指令合并到 `03-local-history.md`。AC-07、AC-08、普通公开网页回归、文档/图标/构建产物和验收要求全部保留；本文件不再独立实施或重复验收。
