@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "candidate": {
-    "fingerprint_sha256": "3e7726a327183e7a6ad92bb11fd2a6397971d7c27e0730566a0234f64954c28b",
+    "fingerprint_sha256": "62f193e0a7f4e7f2b98a77b711da4673d288631923a37222407411c7eb1772dc",
     "files": [
       {"path":"background.js","sha256":"655f43e052d24620b63b5d48f97841173537c4964a63562b280223ddefa81f93"},
       {"path":"icon/128.png","sha256":"9a51ba4154a72f2d6f3c36a1e018a6c1f3932d2748ba6b63339ce93b0ae870b2"},
@@ -10,7 +10,7 @@
       {"path":"icon/48.png","sha256":"3c09dff4ead132afcbb2c6de4ad96d07e02ba4a09a4a7f3bdaa7a69736b638d8"},
       {"path":"icon/96.png","sha256":"209c124e64afca9f22663c53ebd16c438abae7ef020e65c989daf9b618b37452"},
       {"path":"manifest.json","sha256":"d78879ea9ec3c27f166fcf62580a6c8ed4dddffddb742ccbbb08283758c7af90"},
-      {"path":"picker.js","sha256":"89af7142366ffe0b0a9d3a13063f2dcd635d83e34a1600882e484fcefcc6c8a8"}
+      {"path":"picker.js","sha256":"6cda8e496d3570844c8583186b865f86d1c8e2116590e923f8f33c420d92cc34"}
     ]
   },
   "environment": {
@@ -26,7 +26,7 @@
     "reason": "用户为三个隔离 CLI 明确选择了具备扩展安装和 action 触发能力的项目专用 Chrome DevTools MCP。",
     "user_decision": {"status":"approved","evidence_path":"user-decision.md"}
   },
-  "required_scenarios": ["install","native_entry","primary_flow","reopen","escape_cancel","pixel_mapping","review_regressions"],
+  "required_scenarios": ["install","native_entry","primary_flow","reopen","escape_cancel","pixel_mapping","review_regressions","keyboard_scroll_lock"],
   "scenarios": [
     {
       "id":"install","required":true,"status":"passed","method":"real_browser_tool",
@@ -76,6 +76,13 @@
       "expected":"不删除网页同名元素；第二次截图不含第一次覆盖层。",
       "actual":"collisionStillPresent=true；重复 action 后底层白色 header 取为 #FFFFFF，旧候选曾稳定复现 #242A38。",
       "artifactPaths":["review-fixes-zoom125.png","tool-record.md"]
+    },
+    {
+      "id":"keyboard_scroll_lock","required":true,"status":"passed","method":"real_browser_tool",
+      "steps":["滚动至页面顶部","从原生 action 启动取色","按真实 PageDown 键","读取 scrollY 和取色宿主状态"],
+      "expected":"取色期间页面不滚动，取色层保持活动；Esc 仍可取消。",
+      "actual":"修复前稳定从 scrollY 0 变为 928；修复后 scrollY 保持 0 且 pickerPresent=true。",
+      "artifactPaths":["tool-record.md"]
     }
   ]
 }

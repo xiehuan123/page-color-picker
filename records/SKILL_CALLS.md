@@ -14,3 +14,5 @@
 | 2026-09-11 | `diagnosing-bugs` | WXT 脚手架 Node 引擎失败、TDD 契约失败 | `diagnostics/scaffold-node-engine.md`；使用已有 Node 22；公开接口与正确 HSL 基准修复并复验 | 已执行 |
 | 2026-09-11 | `code-review` | 票 01，基线 `d66bc58`，候选 `b9f7b28`，正式规格/票 01 | 两个独立代理并行输出 Standards 3 硬违规 + 1 判断项、Spec 3 项；原场景复现、修复并复验 | 初审已执行，等待复审 |
 | 2026-09-11 | `diagnosing-bugs` | 票 01 初审失败：ID 冲突与重复 action 自采 | 旧候选真实红场景 → 清理等待两帧/自持有宿主 → 同名元素保留、重复 action 得 #FFFFFF；125% zoom 得 #EF4444 | 已执行 |
+| 2026-09-12 | `code-review` | 票 01 第二轮，基线 `d66bc58`，候选 `8900059` | Standards 硬规则通过；Spec 发现键盘滚动会造成快照错位 | 已执行，Spec 待复验 |
+| 2026-09-12 | `diagnosing-bugs` | 取色中 PageDown 仍滚动页面 | 旧候选 `scrollY 0→928`；拦截滚动键后同场景保持 0 | 已执行 |

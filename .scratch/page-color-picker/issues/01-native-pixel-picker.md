@@ -34,4 +34,5 @@ Blocked by: None — can start immediately
 - 诊断修复：旧候选真实复现同名 ID 被删、重复 action 采到 `#242A38`；修复后同名元素保留、重复 action 得 `#FFFFFF`，真实 125% zoom 仍精确得 `#EF4444`。
 - 当前 candidate：`3e7726a327183e7a6ad92bb11fd2a6397971d7c27e0730566a0234f64954c28b`。
 - 当前 gate：`../../../evidence/ticket-01/gate-report-v2.json`，`gate_passed: true`。
-- 待完成：固定修复提交后执行规范/规格双轴复审。
+- 第二轮复审：Standards 硬规则通过；Spec 发现键盘滚动未锁定，旧候选真实复现 PageDown 导致 `scrollY 0 → 928`，修复后保持 0。
+- 待完成：为键盘修复重新计算当前门禁并执行最终双轴复审。

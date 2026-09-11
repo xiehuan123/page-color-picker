@@ -174,9 +174,14 @@ function makeController(): PickerController {
       };
 
       const onKeyDown = (event: KeyboardEvent): void => {
-        if (event.key !== 'Escape') return;
-        stopEvent(event);
-        cleanupActiveSession?.();
+        if (event.key === 'Escape') {
+          stopEvent(event);
+          cleanupActiveSession?.();
+          return;
+        }
+        if ([' ', 'PageUp', 'PageDown', 'Home', 'End', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
+          stopEvent(event);
+        }
       };
 
       cleanupActiveSession = () => {

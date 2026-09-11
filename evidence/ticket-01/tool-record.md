@@ -70,3 +70,14 @@ evaluate_script serviceWorkerId=sw-3 使用真实 chrome.tabs.setZoom(activeTab,
 ```
 
 结论：同名页面元素保留；覆盖层清理后等待两帧再截图，重复 action 不再自采；真实 125% 页面缩放 + DPR2 映射精确。
+
+```text
+规格复审键盘滚动旧候选复现：scrollTo(0,0) → trigger_extension_action → press_key PageDown
+{"after":928,"pickerPresent":true}
+
+修复后 reload_extension + reload page，保持真实 zoom=1.25 / DPR=2.5：
+scrollTo(0,0) → trigger_extension_action → press_key PageDown
+{"after":0,"pickerPresent":true}
+```
+
+结论：取色期间 PageUp/PageDown/Home/End/空格/方向键均被捕获阻止，Esc 仍关闭取色层。
