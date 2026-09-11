@@ -26,7 +26,7 @@
     "reason": "用户明确选择项目专用、隔离 profile 的 Chrome DevTools MCP。",
     "user_decision": {"status":"approved","evidence_path":"user-decision.md"}
   },
-  "required_scenarios": ["install","native_entry","primary_flow","reopen","format_copy_paste","valid_conversion","invalid_recovery"],
+  "required_scenarios": ["install","native_entry","primary_flow","reopen","format_copy_paste","valid_conversion","invalid_recovery","small_viewport"],
   "scenarios": [
     {
       "id":"install","required":true,"status":"passed","method":"real_browser_tool",
@@ -60,15 +60,21 @@
     },
     {
       "id":"valid_conversion","required":true,"status":"passed","method":"real_browser_tool",
-      "steps":["输入 hsl(210 100% 50%) 并提交","输入 rebeccapurple 并提交"],
-      "expected":"浏览器认可的 CSS 颜色转换为一致格式。","actual":"HSL 转为 #0080FF；颜色名转为 #663399 / rgb(102, 51, 153) / hsl(270, 50%, 40%)。",
-      "artifactPaths":["conversion-color-name.json","tool-record.md"]
+      "steps":["分别输入 #0ea5e9、rgb(255, 193, 7)、hsl(210 100% 50%)、rebeccapurple 并提交"],
+      "expected":"浏览器认可的 HEX/RGB/HSL/颜色名均转换为一致格式。","actual":"依次得到 #0EA5E9、#FFC107、#0080FF、#663399，RGB/HSL 显示对应正确。",
+      "artifactPaths":["conversion-hex.json","conversion-rgb.json","conversion-color-name.json","tool-record.md"]
     },
     {
       "id":"invalid_recovery","required":true,"status":"passed","method":"real_browser_tool",
       "steps":["已有 #663399 结果时输入 definitely-not-a-color","提交并读取状态和结果"],
       "expected":"中文错误提示出现且原结果不变。","actual":"提示“无法识别这个颜色，请检查输入”，HEX 仍为 #663399。",
       "artifactPaths":["conversion-invalid-preserves.json","invalid-color-preserved.snapshot.txt","invalid-color-preserved.png","tool-record.md"]
+    },
+    {
+      "id":"small_viewport","required":true,"status":"passed","method":"real_browser_tool",
+      "steps":["emulate 360×640×2 设备视口，同时保留真实页面 zoom=1.25","截取当前结果面板","读取面板与输入/按钮几何"],
+      "expected":"面板和操作控件在窄视口内完整可见。","actual":"实际 CSS viewport 288×512；面板边界 10..278 × 10..372.2，全部在视口内；输入宽 170.8，按钮宽 55.6。",
+      "artifactPaths":["narrow-360x640.png","narrow-layout.json","tool-record.md"]
     }
   ]
 }

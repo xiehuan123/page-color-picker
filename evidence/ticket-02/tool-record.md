@@ -20,6 +20,15 @@ HSL：{"pasted":"hsl(210, 100%, 50%)","method":"clipboard-api","pass":true}
 fill_form value="rebeccapurple"; click 转换
 {"hex":"#663399","rgb":"rgb(102, 51, 153)","hsl":"hsl(270, 50%, 40%)","pass":true}
 
+Spec 初审后补做真实输入：
+fill_form value="#0ea5e9"; click 转换
+{"hex":"#0EA5E9","rgb":"rgb(14, 165, 233)","hsl":"hsl(199, 89%, 48%)","pass":true}
+fill_form value="rgb(255, 193, 7)"; click 转换
+{"hex":"#FFC107","rgb":"rgb(255, 193, 7)","hsl":"hsl(45, 100%, 51%)","pass":true}
+
+emulate viewport=360x640x2（service worker 中真实页面 zoom 仍为 1.25）
+实际 CSS viewport=[288,512]；panel 全部位于 [10,10]..[278,372.2]；输入宽 170.8、按钮宽 55.6；pass=true。
+
 fill_form value="definitely-not-a-color"; click 转换
 {"hex":"#663399","status":"无法识别这个颜色，请检查输入","preserved":true,"pass":true}
 

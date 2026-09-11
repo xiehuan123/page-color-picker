@@ -23,3 +23,5 @@
 | 2026-09-12 | `tdd` | 票 02 颜色解析 seam | `parseCanonicalColor` 测试先红后绿；HEX/透明 HEX/rgba/非法输入通过 | 已执行（票 02） |
 | 2026-09-12 | `ui-designer` | 票 02 结果、转换、复制状态 | 三格式大点击区、中文状态/错误、稳定焦点和窄屏 CSS；真实页面截图/快照验证 | 已执行（票 02） |
 | 2026-09-12 | `diagnosing-bugs` | 复制成功后常见粘贴快捷键在 headless 无输出 | 确认实际为 Clipboard API；改用受控环境原生 `Shift+Insert`，三格式真实粘贴逐字通过 | 已执行 |
+| 2026-09-12 | `code-review` | 票 02，基线 `ae7ce37`，候选 `b5e82de` | 两个独立代理：Standards Pass；Spec 因 HEX/RGB 输入和窄视口实测证据缺口 Fail | 初审已执行，待复审 |
+| 2026-09-12 | `diagnosing-bugs` | 票 02 Spec 证据缺口 | 真实输入 HEX/RGB 均转换通过；360×640×2 且 zoom 125% 下布局边界/控件尺寸通过并截图 | 已执行 |
