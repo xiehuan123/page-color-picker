@@ -1,7 +1,7 @@
 # 01 — 从原生 action 完成真实页面像素取色
 
 Parent: `../spec.md`
-Status: review
+Status: done
 Blocked by: None — can start immediately
 
 ## What to build
@@ -14,10 +14,10 @@ Blocked by: None — can start immediately
 
 ## Acceptance criteria
 
-- [ ] AC-01：真实 action → 已知纯色点击 → 精确颜色。
-- [ ] AC-02：DPR/缩放/滚动/渐变/图片坐标映射正确，覆盖层不入样。
-- [ ] AC-03：Esc 取消后页面恢复且不产生选择。
-- [ ] 正式构建、双轴 code-review、真实浏览器证据、门禁报告和可恢复 Git 提交齐全。
+- [x] AC-01：真实 action → 已知纯色点击 → 精确颜色。
+- [x] AC-02：DPR/缩放/滚动/渐变/图片坐标映射正确，覆盖层不入样。
+- [x] AC-03：Esc 取消后页面恢复且不产生选择。
+- [x] 正式构建、双轴 code-review、真实浏览器证据、门禁报告和可恢复 Git 提交齐全。
 
 ## Required skills
 
@@ -37,4 +37,7 @@ Blocked by: None — can start immediately
 - 第二轮复审：Standards 硬规则通过；Spec 发现键盘滚动未锁定，旧候选真实复现 PageDown 导致 `scrollY 0 → 928`，修复后保持 0。
 - 第三轮复审：Spec 通过；Standards 发现结果阶段仍吞掉关闭按钮 Space。旧候选真实复现，使用 `isPicking` 生命周期修复后 Space 可关闭、取色阶段 PageDown 仍锁定。
 - 当前 candidate：`591313021bfdae10f91a2d4ef6f7d06f971f3c88303bbb152edc3d6afe504a46`。
-- 待完成：重新运行门禁、提交并做最终双轴复审。
+- 最终双轴审查：`../../../evidence/ticket-01/review-final.md`，Standards Pass / Spec Pass。
+- 最终 gate：`../../../evidence/ticket-01/gate-report-v4.json`，`gate_passed: true`。
+- 可恢复提交：`b9f7b28`、`8900059`、`913d0c5`、`5b64dad`。
+- 关闭：所有本票标准满足，2026-09-12。

@@ -18,3 +18,4 @@
 | 2026-09-12 | `diagnosing-bugs` | 取色中 PageDown 仍滚动页面 | 旧候选 `scrollY 0→928`；拦截滚动键后同场景保持 0 | 已执行 |
 | 2026-09-12 | `code-review` | 票 01 第三轮，基线 `d66bc58`，候选 `913d0c5` | Spec 通过；Standards 发现结果阶段 Space 被滚动键监听吞掉 | 已执行，Standards 待复验 |
 | 2026-09-12 | `diagnosing-bugs` | 结果面板关闭按钮 Space 不响应 | 旧候选 panelPresent=true；限定 `isPicking` 后 Space 触发原生按钮，hostPresent=false | 已执行 |
+| 2026-09-12 | `code-review` | 票 01 收口，基线 `d66bc58`，候选 `5b64dad` | 两个独立代理：Standards Pass（0 硬违规）、Spec Pass；1 个不阻止判断项后续拆分 | 已执行，票 01 通过 |
