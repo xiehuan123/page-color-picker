@@ -31,4 +31,7 @@
 | 2026-09-12 | `chrome-extensions` + `implement` | 票 03 `storage.local` 持久化和历史 UI | 仅保存规范化 RGBA 数组；串行化读改写，避免初次加载与快速转换竞态；不保存截图 | 进行中 |
 | 2026-09-12 | `browser-extension-launch` + `chrome-extensions` + `implement` | 合并票 03/04 与最终候选 | 根 `extension/` 正式构建；历史、受限页、公开网页、说明/隐私/权限、最终验收集中完成 | 已执行，待双轴审查 |
 | 2026-09-12 | `ui-designer` | 历史列表和管理状态 | 两列色块、可访问复用/删除名称、清空/空状态、面板滚动边界；真实截图验证 | 已执行（合并票） |
-| 2026-09-12 | `browser-extension-launch` acceptance | 最终根 `extension/` 指纹 `64750f6…5443` | 独立 Chrome DevTools MCP 安装；11 个真实必需场景、22 份证据，gate v3 通过 | 已执行，待审查 |
+| 2026-09-12 | `browser-extension-launch` acceptance | 初审根 `extension/` 指纹 `64750f6…5443` | 独立 Chrome DevTools MCP 安装；11 个真实必需场景、22 份证据，gate v3 通过 | 已执行；后被队列修复候选替代 |
+| 2026-09-12 | `code-review` | 合并实施/最终候选 `554fcb1`，基线 `c1f6899` | Standards 发现 Promise 队列和工单依赖 2 个 hard issues；Spec 功能通过但缺最终 pack | 初审已执行，待修复复审 |
+| 2026-09-12 | `diagnosing-bugs` | 历史 `.then()` 队列可能永久 rejected | 改为 async/await FIFO 并逐操作隔离；真实快速取色+立即转换、扩展重载持久化均通过 | 已执行 |
+| 2026-09-12 | `browser-extension-launch` release bundle | 最终指纹 `2bf60d9…6725` | gate v4 通过；release check/pack 零错误零警告；ZIP SHA-256 `637b1ab6…dc96` | 已执行，待最终复审 |

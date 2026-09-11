@@ -52,77 +52,77 @@
         "skill": "chrome-extensions",
         "stage": "architecture",
         "applies_when": "all_projects",
-        "status": "not_executed",
-        "source_path": null,
+        "status": "executed",
+        "source_path": "../.runtime/codex-home/skills/chrome-extensions/SKILL.md",
         "source_revision": null,
         "read_evidence": [],
-        "execution_evidence": []
+        "execution_evidence": ["../records/SKILL_CALLS.md"]
       },
       {
         "skill": "extension-create",
         "stage": "creation",
         "applies_when": "new_extension",
-        "status": "not_executed",
-        "source_path": null,
+        "status": "executed",
+        "source_path": "../.runtime/codex-home/skills/extension-create/SKILL.md",
         "source_revision": null,
         "read_evidence": [],
-        "execution_evidence": []
+        "execution_evidence": ["../records/SKILL_CALLS.md"]
       },
       {
         "skill": "diagnosing-bugs",
         "stage": "debugging",
         "applies_when": "failure_or_regression",
-        "status": "not_executed",
-        "source_path": null,
+        "status": "executed",
+        "source_path": "../.runtime/codex-home/skills/diagnosing-bugs/SKILL.md",
         "source_revision": null,
         "read_evidence": [],
-        "execution_evidence": []
+        "execution_evidence": ["../records/SKILL_CALLS.md", "../diagnostics/"]
       },
       {
         "skill": "code-review",
         "stage": "review",
         "applies_when": "each_implementation_and_final_candidate",
-        "status": "not_executed",
-        "source_path": null,
+        "status": "in_progress",
+        "source_path": "../.runtime/codex-home/skills/code-review/SKILL.md",
         "source_revision": null,
         "read_evidence": [],
-        "execution_evidence": []
+        "execution_evidence": ["../records/SKILL_CALLS.md", "../evidence/ticket-01/", "../evidence/ticket-02/", "../evidence/final/review-initial.md"]
       },
       {
         "skill": "setup-matt-pocock-skills",
         "stage": "project_setup",
         "applies_when": "complex_project_first_use_or_missing_configuration",
-        "status": "not_executed",
-        "source_path": null,
+        "status": "executed",
+        "source_path": "../.runtime/codex-home/skills/setup-matt-pocock-skills/SKILL.md",
         "source_revision": null,
         "read_evidence": [],
-        "execution_evidence": []
+        "execution_evidence": ["../AGENTS.md", "../docs/agents/"]
       },
       {
         "skill": "to-spec",
         "stage": "specification",
         "applies_when": "complex_project",
-        "status": "not_executed",
-        "source_path": null,
+        "status": "executed",
+        "source_path": "../.runtime/codex-home/skills/to-spec/SKILL.md",
         "source_revision": null,
         "read_evidence": [],
-        "execution_evidence": []
+        "execution_evidence": ["../.scratch/page-color-picker/spec.md"]
       },
       {
         "skill": "to-tickets",
         "stage": "ticket_decomposition",
         "applies_when": "complex_project",
-        "status": "not_executed",
-        "source_path": null,
+        "status": "executed",
+        "source_path": "../.runtime/codex-home/skills/to-tickets/SKILL.md",
         "source_revision": null,
         "read_evidence": [],
-        "execution_evidence": []
+        "execution_evidence": ["../.scratch/page-color-picker/issues/"]
       },
       {
         "skill": "triage",
         "stage": "feedback_triage",
         "applies_when": "external_feedback_or_existing_tickets_need_triage",
-        "status": "not_executed",
+        "status": "not_applicable",
         "source_path": null,
         "source_revision": null,
         "read_evidence": [],
@@ -132,11 +132,11 @@
         "skill": "implement",
         "stage": "ticket_implementation",
         "applies_when": "each_complex_project_ticket",
-        "status": "not_executed",
-        "source_path": null,
+        "status": "executed",
+        "source_path": "../.runtime/codex-home/skills/implement/SKILL.md",
         "source_revision": null,
         "read_evidence": [],
-        "execution_evidence": []
+        "execution_evidence": ["../records/SKILL_CALLS.md", "../.scratch/page-color-picker/issues/"]
       }
     ],
     "complex_chain": [

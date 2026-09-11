@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "candidate": {
-    "fingerprint_sha256": "64750f6e8f2c8a1106b6568344fc10e36cda3c45d3c528dc0453f0ac47bc5443",
+    "fingerprint_sha256": "2bf60d9cd4d7e942a4be4ed2600d23d13cfeb41f8cfa1a884c7dcf01b3e56725",
     "files": [
       {"path":"background.js","sha256":"655f43e052d24620b63b5d48f97841173537c4964a63562b280223ddefa81f93"},
       {"path":"icon/128.png","sha256":"9a51ba4154a72f2d6f3c36a1e018a6c1f3932d2748ba6b63339ce93b0ae870b2"},
@@ -10,7 +10,7 @@
       {"path":"icon/48.png","sha256":"3c09dff4ead132afcbb2c6de4ad96d07e02ba4a09a4a7f3bdaa7a69736b638d8"},
       {"path":"icon/96.png","sha256":"209c124e64afca9f22663c53ebd16c438abae7ef020e65c989daf9b618b37452"},
       {"path":"manifest.json","sha256":"d78879ea9ec3c27f166fcf62580a6c8ed4dddffddb742ccbbb08283758c7af90"},
-      {"path":"picker.js","sha256":"daa65794ff863ccb19f3289e38d013dea8448c9fa9b9af3070fa3c6a1955ed81"}
+      {"path":"picker.js","sha256":"72ec2a1bb1fa8ffc20838694be66f25952f3b1653b0d9e36b4d572cd3bd760c9"}
     ]
   },
   "environment": {
@@ -63,7 +63,7 @@
       "id":"history_management","required":true,"status":"passed","method":"real_browser_tool",
       "steps":["真实像素写入红色","转换写入蓝色","点击红色历史项复用","单删蓝色","清空"],
       "expected":"最新置顶、完整 RGBA 去重、单删和清空正确。","actual":"顺序 #0EA5E9/#EF4444 后复用为 #EF4444/#0EA5E9 且仍为 2 条；单删剩红色；清空显示空状态。12 条上限由纯领域测试覆盖。",
-      "artifactPaths":["history-convert-latest.json","history-dedupe-reorder.json","history-delete-one.json","history-clear.json","history-reopen.png","tool-record.md"]
+      "artifactPaths":["history-convert-latest.json","history-dedupe-reorder.json","history-delete-one.json","history-clear.json","history-reopen.png","history-queue-fix.json","tool-record.md"]
     },
     {
       "id":"reopen","required":true,"status":"passed","method":"real_browser_tool",
@@ -75,7 +75,7 @@
       "id":"extension_reload","required":true,"status":"passed","method":"real_browser_tool",
       "steps":["reload_extension","重新载入网页","从 action 取真实红色","读取历史"],
       "expected":"扩展关闭/重载后 storage.local 历史仍在。","actual":"重载后恢复 #EF4444/#0EA5E9，顺序和数量正确。",
-      "artifactPaths":["history-extension-reload.json","tool-record.md"]
+      "artifactPaths":["history-extension-reload.json","history-queue-fix-reload.json","tool-record.md"]
     },
     {
       "id":"storage_privacy","required":true,"status":"passed","method":"real_browser_tool",

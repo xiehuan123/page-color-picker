@@ -1,7 +1,7 @@
 # 05 — 独立验证最终本地候选
 
 Parent: `../spec.md`
-Status: in-review
+Status: blocked
 Blocked by: 03 — 本机历史、失败边界与本地产物（合并实施票）
 
 ## What to build
@@ -25,4 +25,4 @@ Blocked by: 03 — 本机历史、失败边界与本地产物（合并实施票�
 
 ## Work log
 
-复用合并实施票在同一最终指纹上的集中真实操作，不为工单编号重复。根 `extension/` 已安装；11 个必需真实场景的 gate v3 通过；`FINAL_REPORT.md` 已在审查前写为“待独立双轴审查”草稿。等待覆盖完整差异与全部 AC 的 Standards/Spec 审查。
+复用合并实施票在同一最终指纹上的集中真实操作，不为工单编号重复。根 `extension/` 已安装；当前 gate v4 通过；`release_bundle.py check` 与 `pack` 均完成，ZIP 为 `release/page-color-picker-0.1.0.zip`。真实验收已执行，但按依赖规则在阻塞票 03 审查完成前保持 blocked；两者由同一最终双轴审查覆盖。

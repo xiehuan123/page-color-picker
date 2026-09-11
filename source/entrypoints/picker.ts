@@ -161,9 +161,12 @@ function makeController(): PickerController {
         let view: ResultPanelView;
         let history: RgbaColor[] = [];
         let historyLoaded = false;
-        let historyQueue = Promise.resolve();
-        const updateHistory = (transform: (current: RgbaColor[]) => RgbaColor[], message?: string): void => {
-          historyQueue = historyQueue.then(async () => {
+        let processingHistory = false;
+        const historyQueue: Array<{ transform(current: RgbaColor[]): RgbaColor[]; message?: string }> = [];
+        const processHistoryQueue = async (): Promise<void> => {
+          if (processingHistory) return;
+          processingHistory = true;
+          try {
             if (!historyLoaded) {
               try {
                 history = await loadRecentColors();
@@ -172,15 +175,26 @@ function makeController(): PickerController {
               }
               historyLoaded = true;
             }
-            history = transform(history);
-            view.renderHistory(history);
-            try {
-              await saveRecentColors(history);
-              if (message) view.setStatus(message, 'success');
-            } catch {
-              view.setStatus('近期颜色暂时无法保存', 'error');
+            while (historyQueue.length > 0) {
+              const operation = historyQueue.shift();
+              if (!operation) continue;
+              try {
+                history = operation.transform(history);
+                view.renderHistory(history);
+                await saveRecentColors(history);
+                if (operation.message) view.setStatus(operation.message, 'success');
+              } catch {
+                view.setStatus('近期颜色暂时无法保存', 'error');
+              }
             }
-          });
+          } finally {
+            processingHistory = false;
+            if (historyQueue.length > 0) void processHistoryQueue();
+          }
+        };
+        const updateHistory = (transform: (current: RgbaColor[]) => RgbaColor[], message?: string): void => {
+          historyQueue.push({ transform, message });
+          void processHistoryQueue();
         };
         const remember = (nextColor: RgbaColor, message?: string): void => {
           updateHistory((current) => addRecentColor(current, nextColor), message);

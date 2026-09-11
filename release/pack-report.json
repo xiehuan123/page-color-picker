@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "checks_passed",
+  "status": "packed",
   "build_dir": "/Users/xiehuan/Desktop/浏览器插件/page-color-picker/extension",
   "manifest": {
     "name": "网页取色",
@@ -71,5 +71,12 @@
       "审核或发布"
     ],
     "warning_policy": "警告必须由开发者逐项复核；零警告也不代表没有远程代码、隐私问题或功能故障。"
+  },
+  "archive": {
+    "path": "/Users/xiehuan/Desktop/浏览器插件/page-color-picker/release/page-color-picker-0.1.0.zip",
+    "bytes": 16880,
+    "sha256": "637b1ab61fe2e2bc292c7ef218a5b93ad9347d91e9e906b3001ed3992075dc96",
+    "file_count": 8,
+    "manifest_at_root": true
   }
 }

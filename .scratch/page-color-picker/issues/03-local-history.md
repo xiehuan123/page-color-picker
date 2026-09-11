@@ -34,4 +34,5 @@ Merged from: `04-boundaries-and-polish.md`
 - TDD 红阶段因 `domain/history` 不存在失败；绿阶段 3 组测试覆盖置顶、完整 RGBA 去重、12 条上限、单删/清空及损坏数据清洗。
 - 正在接入 `chrome.storage.local` 和近期颜色管理 UI。
 - 已合并完成历史 UI/持久化、受限页恢复、中文 README 与根 `extension/`；最终目录加载后集中 E2E 全部通过。
-- 当前指纹 `64750f6e8f2c8a1106b6568344fc10e36cda3c45d3c528dc0453f0ac47bc5443`；等待一次覆盖合并实施和最终 AC 的双轴审查。
+- 初审发现历史 Promise 链不合规范且可能在异常后停摆；已改为纯 async/await 显式队列，快速“取色后立即转换”与扩展重载持久化复验通过。
+- 当前指纹 `2bf60d9cd4d7e942a4be4ed2600d23d13cfeb41f8cfa1a884c7dcf01b3e56725`；等待覆盖合并实施和最终 AC 的最终双轴复审。

@@ -51,3 +51,18 @@ action badge=""，title="进入网页取色"（从失败状态恢复）
 DOM 操作只读取 fixture 元素坐标并向扩展实际 Shadow DOM 取色层派发用户指针/点击事件；没有注入或替换 Chrome、截图、Clipboard 或 Storage API。存储通过产品 UI 写入，service worker 仅作只读核对。
 
 更早的同一像素映射实现还在 `evidence/ticket-01/` 真实验证过 DPR2、真实 125% 页面缩放、滚动、渐变和 SVG 图片；最终集中验收没有为工单编号变化重复这些操作。票 01 后像素映射与截图链路未修改。
+
+## 最终审查缺陷复验
+
+Standards 初审发现 Promise `.then()` 历史队列违反扩展规范且异常可能令队列永久停止。改为纯 async/await 显式操作队列、逐操作捕获后，重新构建并同步根 `extension/`。
+
+```text
+reload_extension -> fixture reload -> trigger_extension_action
+同一个同步页面脚本中：点击真实 #solid-red 像素后立即输入 #0ea5e9 并提交（初次 storage 读取尚在进行）
+{"history":["#0EA5E9","#EF4444"],"status":"已转换并保存到近期颜色","pass":true}
+
+再次 reload_extension -> page reload -> action -> 真实红色
+{"history":["#EF4444","#0EA5E9"],"pass":true}
+```
+
+证明快速连续操作按序完成且扩展重载后持久化。修复不涉及截图、取色、复制、转换或后台失败边界代码。

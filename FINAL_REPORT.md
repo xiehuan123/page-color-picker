@@ -14,9 +14,9 @@
 
 - 可直接加载目录：`/Users/xiehuan/Desktop/浏览器插件/page-color-picker/extension`
 - 版本：0.1.0，Manifest V3。
-- 最终目录指纹：`64750f6e8f2c8a1106b6568344fc10e36cda3c45d3c528dc0453f0ac47bc5443`。
+- 最终目录指纹：`2bf60d9cd4d7e942a4be4ed2600d23d13cfeb41f8cfa1a884c7dcf01b3e56725`。
 - 源码与锁文件：`source/`；构建方式见 `README.md`。
-- ZIP：待最终审查通过后由 `release_bundle.py pack` 生成到 `release/`。
+- ZIP：`release/page-color-picker-0.1.0.zip`，SHA-256 `637b1ab61fe2e2bc292c7ef218a5b93ad9347d91e9e906b3001ed3992075dc96`；清单在 ZIP 根目录。
 
 ## 已验证
 
@@ -25,7 +25,8 @@
 - 构建一致性：`source/.output/chrome-mv3/` 与根 `extension/` 无差异。
 - 静态交付检查：`release/check-report.json` 状态 `checks_passed`，零错误、零警告；MV3、图标尺寸、清单资源通过。
 - 最终 Chrome DevTools MCP：从根 `extension/` 安装，ID `khiklbdcghcjmlaefolhmbclijkegnjb`，原生 action、#EF4444 像素、Esc 恢复、真实 HEX 复制粘贴、历史全流程、扩展重载持久化、受限页恢复和 example.com 公开网页取色通过。
-- 最终 acceptance gate：`evidence/final/gate-report-v3.json`，同一指纹，11 个必需真实场景、22 份证据，`gate_passed=true`。
+- 最终 acceptance gate：`evidence/final/gate-report-v4.json`，同一指纹，11 个必需真实场景、24 份证据，`gate_passed=true`。
+- 本地包：`release/pack-report.json` 状态 `packed`，8 个文件，16,880 bytes；`release_bundle.py check`/`pack` 均零错误、零警告。
 - 票 01 的真实证据另覆盖 DPR2、真实 125% 页面缩放、滚动后 #123456、SVG 图片 #A855F7、渐变中心最大通道误差 1、重复 action 不自采覆盖层；此后截图/像素映射代码未修改。最终指纹没有仅为工单编号变化重复这些场景。
 - 票 02 的真实证据另覆盖 RGB/HSL 实际粘贴、HEX/RGB/HSL/颜色名输入、非法恢复与窄视口全文显示。
 
