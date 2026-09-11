@@ -1,0 +1,16 @@
+uid=4_0 RootWebArea "网页取色验收夹具" url="http://127.0.0.1:4311/"
+  uid=4_1 banner
+    uid=4_2 heading "网页取色验收夹具" level="1"
+    uid=4_3 StaticText "包含纯色、渐变、图片和滚动后的已知像素。"
+  uid=4_4 main
+    uid=4_5 StaticText "纯色 #EF4444"
+    uid=4_6 StaticText "蓝到绿渐变"
+    uid=4_7 StaticText "内嵌图片"
+    uid=4_8 image "左紫右黄的测试图片" url="http://127.0.0.1:4311/pixel-grid.svg"
+    uid=4_9 StaticText "复制粘贴核对区"
+    uid=4_10 textbox "复制粘贴核对区" value="hsl(210, 100%, 50%)"
+    uid=4_11 StaticText "向下滚动验证当前视口坐标"
+    uid=4_12 StaticText "滚动目标 #123456"
+  uid=10_0 StaticText "移动鼠标预览 · 点击选色 · Esc 取消"
+  uid=10_1 status atomic live="polite" relevant="additions text"
+    uid=10_2 StaticText "#F6F7FB"

@@ -20,6 +20,35 @@ function normalizeHue(value: number): number {
   return ((value % 360) + 360) % 360;
 }
 
+function parseHexByte(value: string): number {
+  return Number.parseInt(value, 16);
+}
+
+export function parseCanonicalColor(value: string): RgbaColor | null {
+  const text = value.trim();
+  const hex = /^#([\da-f]{3,4}|[\da-f]{6}|[\da-f]{8})$/i.exec(text);
+  if (hex?.[1]) {
+    const digits = hex[1].length <= 4
+      ? [...hex[1]].map((digit) => `${digit}${digit}`).join('')
+      : hex[1];
+    return {
+      r: parseHexByte(digits.slice(0, 2)),
+      g: parseHexByte(digits.slice(2, 4)),
+      b: parseHexByte(digits.slice(4, 6)),
+      a: digits.length === 8 ? parseHexByte(digits.slice(6, 8)) / 255 : 1,
+    };
+  }
+
+  const rgb = /^rgba?\(\s*(\d+(?:\.\d+)?)\s*,\s*(\d+(?:\.\d+)?)\s*,\s*(\d+(?:\.\d+)?)(?:\s*,\s*(\d*(?:\.\d+)?))?\s*\)$/i.exec(text);
+  if (!rgb) return null;
+  const r = Number(rgb[1]);
+  const g = Number(rgb[2]);
+  const b = Number(rgb[3]);
+  const a = rgb[4] === undefined ? 1 : Number(rgb[4]);
+  if (![r, g, b, a].every(Number.isFinite) || [r, g, b].some((channel) => channel < 0 || channel > 255) || a < 0 || a > 1) return null;
+  return { r: Math.round(r), g: Math.round(g), b: Math.round(b), a };
+}
+
 export function rgbaToHsl(color: RgbaColor): HslColor {
   const r = color.r / 255;
   const g = color.g / 255;

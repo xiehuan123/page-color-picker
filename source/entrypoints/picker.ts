@@ -1,6 +1,9 @@
 import { formatHex, formatHsl, formatRgb, type RgbaColor } from '../domain/color';
 import { mapViewportPoint } from '../domain/pixel';
+import { copyText } from '../adapters/clipboard';
+import { parseCssColor } from '../adapters/css-color';
 import { PICKER_STYLES } from '../ui/picker-styles';
+import { createResultPanel, type ColorFormat, type ResultPanelView } from '../ui/result-panel';
 
 interface StartMessage {
   type: 'PAGE_COLOR_PICKER_START';
@@ -152,16 +155,33 @@ function makeController(): PickerController {
       };
 
       const showResult = (color: RgbaColor): void => {
-        const hex = formatHex(color);
         stage.remove();
-        const panel = document.createElement('section');
-        panel.className = 'panel';
-        panel.setAttribute('aria-label', `已选颜色 ${hex}`);
-        panel.innerHTML = `<div class="panel-head"><div class="swatch"></div><div><h2>已取得网页颜色</h2><p class="sub">来自当前可见网页的真实像素</p></div></div><div class="values"><div class="value"><span class="label">HEX</span><code>${hex}</code></div><div class="value"><span class="label">RGB</span><code>${formatRgb(color)}</code></div><div class="value"><span class="label">HSL</span><code>${formatHsl(color)}</code></div></div><div class="actions"><button type="button">关闭</button></div>`;
-        panel.querySelector<HTMLElement>('.swatch')?.style.setProperty('--picked', hex);
-        panel.querySelector('button')?.addEventListener('click', () => cleanupActiveSession?.());
-        shadow.append(panel);
-        panel.querySelector('button')?.focus();
+        let view: ResultPanelView;
+        const handleCopy = async (format: ColorFormat, text: string): Promise<void> => {
+          try {
+            const method = await copyText(text);
+            view.element.dataset.lastClipboardMethod = method;
+            view.setStatus(`已复制 ${format}`, 'success');
+          } catch {
+            view.element.dataset.lastClipboardMethod = 'failed';
+            view.setStatus('复制失败，请重试', 'error');
+          }
+        };
+        view = createResultPanel(color, {
+          onClose: () => cleanupActiveSession?.(),
+          onCopy: (format, text) => { void handleCopy(format, text); },
+          onConvert: (input) => {
+            const parsed = parseCssColor(input);
+            if (!parsed) {
+              view.setStatus('无法识别这个颜色，请检查输入', 'error');
+              return;
+            }
+            view.updateColor(parsed);
+            view.setStatus('已转换，可点击格式复制', 'success');
+          },
+        });
+        shadow.append(view.element);
+        view.element.querySelector<HTMLButtonElement>('[data-copy="HEX"]')?.focus();
       };
 
       const onClick = (event: MouseEvent): void => {

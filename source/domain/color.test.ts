@@ -4,6 +4,7 @@ import {
   formatHsl,
   formatRgb,
   hslToRgba,
+  parseCanonicalColor,
   rgbaToHsl,
   type RgbaColor,
 } from './color';
@@ -30,5 +31,12 @@ describe('颜色领域公开格式接口', () => {
       l: 50,
       a: 1,
     });
+  });
+
+  it('把浏览器规范化后的 HEX/RGBA 转为统一颜色，拒绝无效文本', () => {
+    expect(parseCanonicalColor('#0ea5e9')).toEqual({ r: 14, g: 165, b: 233, a: 1 });
+    expect(parseCanonicalColor('#0ea5e980')).toEqual({ r: 14, g: 165, b: 233, a: 128 / 255 });
+    expect(parseCanonicalColor('rgba(102, 51, 153, 0.5)')).toEqual({ r: 102, g: 51, b: 153, a: 0.5 });
+    expect(parseCanonicalColor('not-a-color')).toBeNull();
   });
 });

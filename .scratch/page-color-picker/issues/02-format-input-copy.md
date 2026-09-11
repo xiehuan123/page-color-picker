@@ -1,7 +1,7 @@
 # 02 — 查看、转换并复制常用颜色格式
 
 Parent: `../spec.md`
-Status: ready-for-agent
+Status: in-review
 Blocked by: 01 — 从原生 action 完成真实页面像素取色
 
 ## What to build
@@ -14,9 +14,9 @@ Blocked by: 01 — 从原生 action 完成真实页面像素取色
 
 ## Acceptance criteria
 
-- [ ] AC-04：三种格式从真实扩展界面复制后可实际粘贴且文本一致。
-- [ ] AC-05：合法输入转换正确；非法输入显示错误且不覆盖结果。
-- [ ] 键盘焦点、状态提示、小尺寸布局可用。
+- [x] AC-04：三种格式从真实扩展界面复制后可实际粘贴且文本一致。
+- [x] AC-05：合法输入转换正确；非法输入显示错误且不覆盖结果。
+- [x] 键盘焦点、状态提示、小尺寸布局可用。
 - [ ] 正式构建、双轴 code-review、真实浏览器证据、门禁报告和可恢复 Git 提交齐全。
 
 ## Required skills
@@ -25,4 +25,8 @@ Blocked by: 01 — 从原生 action 完成真实页面像素取色
 
 ## Work log
 
-等待 01。
+- 基线：`ae7ce37`。
+- TDD 增加规范化颜色解析测试；实现浏览器原生 CSS 颜色解析、三格式结果面板与真实剪贴板复制。
+- Chrome DevTools MCP 从原生 action 进入结果面板；三种格式均真实复制后粘贴通过；合法颜色名/HSL 与非法恢复通过。
+- 诊断并确认 headless 环境粘贴键为 `Shift+Insert`；未增加 `clipboardRead` 等额外权限。
+- 正在进行双轴独立 code-review。

@@ -19,3 +19,7 @@
 | 2026-09-12 | `code-review` | 票 01 第三轮，基线 `d66bc58`，候选 `913d0c5` | Spec 通过；Standards 发现结果阶段 Space 被滚动键监听吞掉 | 已执行，Standards 待复验 |
 | 2026-09-12 | `diagnosing-bugs` | 结果面板关闭按钮 Space 不响应 | 旧候选 panelPresent=true；限定 `isPicking` 后 Space 触发原生按钮，hostPresent=false | 已执行 |
 | 2026-09-12 | `code-review` | 票 01 收口，基线 `d66bc58`，候选 `5b64dad` | 两个独立代理：Standards Pass（0 硬违规）、Spec Pass；1 个不阻止判断项后续拆分 | 已执行，票 01 通过 |
+| 2026-09-12 | `chrome-extensions` + `implement` | 票 02：结果格式、CSS 颜色输入、剪贴板复制 | `activeTab` 用户手势流程内的 Shadow DOM 面板；真实 Clipboard API，未新增读取/站点权限 | 已执行（票 02） |
+| 2026-09-12 | `tdd` | 票 02 颜色解析 seam | `parseCanonicalColor` 测试先红后绿；HEX/透明 HEX/rgba/非法输入通过 | 已执行（票 02） |
+| 2026-09-12 | `ui-designer` | 票 02 结果、转换、复制状态 | 三格式大点击区、中文状态/错误、稳定焦点和窄屏 CSS；真实页面截图/快照验证 | 已执行（票 02） |
+| 2026-09-12 | `diagnosing-bugs` | 复制成功后常见粘贴快捷键在 headless 无输出 | 确认实际为 Clipboard API；改用受控环境原生 `Shift+Insert`，三格式真实粘贴逐字通过 | 已执行 |
