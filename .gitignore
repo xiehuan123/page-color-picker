@@ -1,5 +1,7 @@
 .DS_Store
 node_modules/
+.corepack/
+.pnpm-store/
 .runtime/
 .codex-run/
 .output/

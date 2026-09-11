@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>网页取色验收夹具</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;color:#172033;background:#f6f7fb;font-family:system-ui,sans-serif}header{padding:28px 32px;background:#fff;border-bottom:1px solid #d9deea}main{width:min(920px,calc(100% - 48px));margin:28px auto 80px}h1{margin:0 0 8px;font-size:28px}p{margin:0;color:#596278}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:24px}.card{padding:18px;background:#fff;border:1px solid #d9deea;border-radius:18px}.sample{height:180px;margin-top:12px;border-radius:12px;overflow:hidden}#solid-red{background:#ef4444}#gradient{background:linear-gradient(90deg,#0000ff 0%,#00ff00 100%)}#image-sample{display:block;width:100%;object-fit:fill}.spacer{height:920px;display:grid;place-items:center;color:#98a2b3}#scroll-target{height:220px;border-radius:18px;background:#123456}.paste-zone{margin-top:20px;padding:18px;background:#fff;border-radius:18px}label{display:block;margin-bottom:8px;font-weight:700}input{width:100%;min-height:42px;padding:8px 12px;border:1px solid #aab2c3;border-radius:10px}
+  </style>
+</head>
+<body><header><h1>网页取色验收夹具</h1><p>包含纯色、渐变、图片和滚动后的已知像素。</p></header><main><section class="grid"><article class="card"><strong>纯色 #EF4444</strong><div class="sample" id="solid-red"></div></article><article class="card"><strong>蓝到绿渐变</strong><div class="sample" id="gradient"></div></article><article class="card"><strong>内嵌图片</strong><img class="sample" id="image-sample" src="pixel-grid.svg" alt="左紫右黄的测试图片"></article></section><section class="paste-zone"><label for="paste-target">复制粘贴核对区</label><input id="paste-target" placeholder="后续票在这里实际粘贴"></section><div class="spacer">向下滚动验证当前视口坐标</div><section class="card"><strong>滚动目标 #123456</strong><div id="scroll-target"></div></section></main></body>
+</html>

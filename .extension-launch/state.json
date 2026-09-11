@@ -1,0 +1,367 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-09-11T14:49:33+00:00",
+  "updated_at": "2026-09-11T14:49:33+00:00",
+  "project": {
+    "name": "网页取色",
+    "root": "..",
+    "idea": "网页任意位置取色，支持 HEX、RGB、HSL 转换与一键复制，支持合法颜色输入转换及本机近期历史管理；必须真实从网页像素取色。",
+    "target_browser": {
+      "value": "chrome",
+      "status": "provided",
+      "source": "explicit_cli_argument"
+    },
+    "distribution": {
+      "channel": null,
+      "audience": null,
+      "status": "undecided"
+    },
+    "delivery_goal": {
+      "value": "local",
+      "status": "provided",
+      "source": "explicit_cli_argument"
+    }
+  },
+  "record_policy": {
+    "authority": [
+      "workflow.authoritative_artifacts",
+      "decisions.md"
+    ],
+    "state_role": "index_only",
+    "paths_relative_to": ".extension-launch",
+    "updates": "single_writer; preserve last valid state before atomic replacement",
+    "resume": "read authoritative documents; compare actual version and evidence before resuming"
+  },
+  "phase": "discovery",
+  "workflow": {
+    "complexity": {
+      "value": "complex",
+      "reason": "包含真实网页像素采样、页面取色交互、颜色转换与剪贴板、历史持久化和跨模块真实浏览器验收，存在三个以上可独立验收且有依赖的用户功能。",
+      "status": "recorded",
+      "source": "explicit_cli_argument",
+      "decision_owner": "lead_agent"
+    },
+    "default_e2e_provider": "playwright-mcp",
+    "browser_choice": null,
+    "required_skill_stages": [
+      {
+        "skill": "chrome-extensions",
+        "stage": "architecture",
+        "applies_when": "all_projects",
+        "status": "not_executed",
+        "source_path": null,
+        "source_revision": null,
+        "read_evidence": [],
+        "execution_evidence": []
+      },
+      {
+        "skill": "extension-create",
+        "stage": "creation",
+        "applies_when": "new_extension",
+        "status": "not_executed",
+        "source_path": null,
+        "source_revision": null,
+        "read_evidence": [],
+        "execution_evidence": []
+      },
+      {
+        "skill": "diagnosing-bugs",
+        "stage": "debugging",
+        "applies_when": "failure_or_regression",
+        "status": "not_executed",
+        "source_path": null,
+        "source_revision": null,
+        "read_evidence": [],
+        "execution_evidence": []
+      },
+      {
+        "skill": "code-review",
+        "stage": "review",
+        "applies_when": "each_implementation_and_final_candidate",
+        "status": "not_executed",
+        "source_path": null,
+        "source_revision": null,
+        "read_evidence": [],
+        "execution_evidence": []
+      },
+      {
+        "skill": "setup-matt-pocock-skills",
+        "stage": "project_setup",
+        "applies_when": "complex_project_first_use_or_missing_configuration",
+        "status": "not_executed",
+        "source_path": null,
+        "source_revision": null,
+        "read_evidence": [],
+        "execution_evidence": []
+      },
+      {
+        "skill": "to-spec",
+        "stage": "specification",
+        "applies_when": "complex_project",
+        "status": "not_executed",
+        "source_path": null,
+        "source_revision": null,
+        "read_evidence": [],
+        "execution_evidence": []
+      },
+      {
+        "skill": "to-tickets",
+        "stage": "ticket_decomposition",
+        "applies_when": "complex_project",
+        "status": "not_executed",
+        "source_path": null,
+        "source_revision": null,
+        "read_evidence": [],
+        "execution_evidence": []
+      },
+      {
+        "skill": "triage",
+        "stage": "feedback_triage",
+        "applies_when": "external_feedback_or_existing_tickets_need_triage",
+        "status": "not_executed",
+        "source_path": null,
+        "source_revision": null,
+        "read_evidence": [],
+        "execution_evidence": []
+      },
+      {
+        "skill": "implement",
+        "stage": "ticket_implementation",
+        "applies_when": "each_complex_project_ticket",
+        "status": "not_executed",
+        "source_path": null,
+        "source_revision": null,
+        "read_evidence": [],
+        "execution_evidence": []
+      }
+    ],
+    "complex_chain": [
+      "setup-matt-pocock-skills",
+      "to-spec",
+      "publish-parent-ticket",
+      "to-tickets",
+      "implement"
+    ],
+    "complex_chain_required_when": "complex_project",
+    "parent_ticket": {
+      "status": "not_published",
+      "path_or_url": null,
+      "evidence": []
+    },
+    "authoritative_artifacts": {
+      "spec": null,
+      "parent_ticket": null,
+      "implementation_tickets": [],
+      "paths_relative_to": "project_root",
+      "produced_by_required_skills": true
+    },
+    "ticket_policy": "lead_agent_decides; native skill artifacts are authoritative; publish parent before decomposition; explicit file/module ownership; dependencies before implement; triage only for external feedback or existing tickets; independent review and real E2E"
+  },
+  "spec": {
+    "path": "spec.md",
+    "status": "awaiting_to_spec",
+    "role": "coordination_pointer"
+  },
+  "decisions_path": "decisions.md",
+  "progress_path": "progress.md",
+  "tasks": [
+    {
+      "id": "T-001",
+      "type": "scope",
+      "path": "tasks/T-001.md",
+      "parent": null,
+      "children": [
+        "T-002",
+        "T-003",
+        "T-004",
+        "T-005"
+      ],
+      "depends_on": [],
+      "status": "needs_scope",
+      "in_scope": true,
+      "closing_dependencies": [
+        "T-002",
+        "T-003"
+      ],
+      "scope_ready": false,
+      "version": null,
+      "evidence": []
+    },
+    {
+      "id": "T-002",
+      "type": "implementation",
+      "path": "tasks/T-002.md",
+      "parent": "T-001",
+      "children": [],
+      "depends_on": [],
+      "status": "needs_scope",
+      "in_scope": true,
+      "closing_dependencies": [],
+      "scope_ready": false,
+      "version": null,
+      "evidence": []
+    },
+    {
+      "id": "T-003",
+      "type": "acceptance",
+      "path": "tasks/T-003.md",
+      "parent": "T-001",
+      "children": [],
+      "depends_on": [
+        "T-002"
+      ],
+      "status": "blocked",
+      "in_scope": true,
+      "closing_dependencies": [],
+      "scope_ready": false,
+      "version": null,
+      "evidence": []
+    },
+    {
+      "id": "T-004",
+      "type": "release-preparation",
+      "path": "tasks/T-004.md",
+      "parent": "T-001",
+      "children": [],
+      "depends_on": [
+        "T-003"
+      ],
+      "status": "not_in_scope",
+      "in_scope": false,
+      "closing_dependencies": [],
+      "scope_ready": false,
+      "version": null,
+      "evidence": []
+    },
+    {
+      "id": "T-005",
+      "type": "launch-tracking",
+      "path": "tasks/T-005.md",
+      "parent": "T-001",
+      "children": [],
+      "depends_on": [
+        "T-004"
+      ],
+      "status": "not_in_scope",
+      "in_scope": false,
+      "closing_dependencies": [],
+      "scope_ready": false,
+      "version": null,
+      "evidence": []
+    }
+  ],
+  "next_actions": [
+    "读取已有要求与项目约定，补齐首版范围和可观察验收，沿用已明确的答案。",
+    "运行 doctor 并用宿主工具验证当前步骤需要的实际执行能力。",
+    "自行记录需求复杂度及理由；实际读取并执行适用的必需 skills，复杂时按项目配置、正式主票、拆票、implement 顺序推进。",
+    "连接 Playwright MCP 并实测安装/加载插件能力；不支持时记录原因，请用户选择安装/启用或推荐的真实浏览器替代。",
+    "仅对会影响当前实现的未定重要事项询问用户，再执行 T-002。"
+  ],
+  "needs_user": [],
+  "capabilities": {
+    "checked_at": null,
+    "bundled_methods": {
+      "dependencies": {
+        "kind": "bundled_method",
+        "source": "references/dependencies.md",
+        "source_base": "skill_root",
+        "status": "available",
+        "host_activation": "not_applicable",
+        "execution_proven": false
+      },
+      "workflow": {
+        "kind": "bundled_method",
+        "source": "references/workflow.md",
+        "source_base": "skill_root",
+        "status": "available",
+        "host_activation": "not_applicable",
+        "execution_proven": false
+      },
+      "development": {
+        "kind": "bundled_method",
+        "source": "references/development.md",
+        "source_base": "skill_root",
+        "status": "available",
+        "host_activation": "not_applicable",
+        "execution_proven": false
+      },
+      "acceptance": {
+        "kind": "bundled_method",
+        "source": "references/acceptance.md",
+        "source_base": "skill_root",
+        "status": "available",
+        "host_activation": "not_applicable",
+        "execution_proven": false
+      },
+      "publishing": {
+        "kind": "bundled_method",
+        "source": "references/publishing.md",
+        "source_base": "skill_root",
+        "status": "available",
+        "host_activation": "not_applicable",
+        "execution_proven": false
+      }
+    },
+    "external_skills": [],
+    "execution_tools": {
+      "status": "unverified"
+    },
+    "development_software": {
+      "status": "unverified"
+    },
+    "doctor_report": null
+  },
+  "milestones": {
+    "built": {
+      "status": "not_started",
+      "version": null,
+      "evidence": []
+    },
+    "accepted": {
+      "status": "not_started",
+      "version": null,
+      "evidence": []
+    },
+    "submitted": {
+      "status": "not_started",
+      "version": null,
+      "evidence": []
+    },
+    "live": {
+      "status": "not_started",
+      "version": null,
+      "evidence": []
+    }
+  },
+  "release": {
+    "status": "not_prepared",
+    "candidate_version": null,
+    "package": null,
+    "publishing_intent": {
+      "status": "not_established",
+      "context_evidence": [],
+      "readiness_notice": "not_shown"
+    },
+    "registration": {
+      "status": "not_checked",
+      "fee": null,
+      "payment_method_status": "not_checked"
+    },
+    "assets": {
+      "status": "not_started",
+      "required_missing": [],
+      "generation_status": "not_attempted",
+      "waiting_for_user_upload": false
+    },
+    "preparation_in_scope": false,
+    "submission_in_scope": false,
+    "acceptance_task": "T-003",
+    "preparation_task": "T-004",
+    "tracking_task": "T-005",
+    "channel": null,
+    "submission": null,
+    "store_url": null,
+    "authorization_evidence": [],
+    "first_use_evidence": []
+  }
+}

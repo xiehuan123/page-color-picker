@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "candidate": {
+    "fingerprint_sha256": "d56a112bb6af47f5728b09d8554b76ef194f963efe8690af37bca68a73583e9f",
+    "files": [
+      {"path":"background.js","sha256":"71137930eed16d6c7907f77a63f12b9ed275d6a2eeca4437907c0cbd1a455b39"},
+      {"path":"icon/128.png","sha256":"9a51ba4154a72f2d6f3c36a1e018a6c1f3932d2748ba6b63339ce93b0ae870b2"},
+      {"path":"icon/16.png","sha256":"58eddff80c85c1aaf6b6d0b4b65e99e3debacabe93c7083fb3ba2fa67d315236"},
+      {"path":"icon/32.png","sha256":"df3d956fea6bd2a615515c31067cec039e707badb83a9501737572e45bc5e8dd"},
+      {"path":"icon/48.png","sha256":"3c09dff4ead132afcbb2c6de4ad96d07e02ba4a09a4a7f3bdaa7a69736b638d8"},
+      {"path":"icon/96.png","sha256":"209c124e64afca9f22663c53ebd16c438abae7ef020e65c989daf9b618b37452"},
+      {"path":"manifest.json","sha256":"d78879ea9ec3c27f166fcf62580a6c8ed4dddffddb742ccbbb08283758c7af90"},
+      {"path":"picker.js","sha256":"cc88eed2fea96c9d4048ee1fb26d4867138e5b5697073c62396d8026cae82ef3"}
+    ]
+  },
+  "environment": {
+    "automation_provider": "chrome-devtools-mcp",
+    "browser_name": "HeadlessChrome",
+    "browser_version": "153.0.0.0",
+    "extension_id": "lndaldlafagcjfecgngfpagpmbnabccl",
+    "installation_type": "unpacked"
+  },
+  "browser_choice": {
+    "default_provider": "playwright-mcp",
+    "selected_provider": "chrome-devtools-mcp",
+    "reason": "用户为三个隔离 CLI 明确选择了具备扩展安装和 action 触发能力的项目专用 Chrome DevTools MCP。",
+    "user_decision": {"status":"approved","evidence_path":"user-decision.md"}
+  },
+  "required_scenarios": ["install","native_entry","primary_flow","reopen","escape_cancel","pixel_mapping"],
+  "scenarios": [
+    {
+      "id":"install","required":true,"status":"passed","method":"real_browser_tool",
+      "steps":["用 install_extension 加载当前正式构建目录","用 list_extensions 核对名称、版本、启用状态和扩展 ID","核对扩展 service worker 页面"],
+      "expected":"网页取色 0.1.0 以 unpacked 方式启用，后台 worker 存在。",
+      "actual":"ID lndaldlafagcjfecgngfpagpmbnabccl，网页取色 v0.1.0 Enabled，sw-1 指向 background.js。",
+      "artifactPaths":["tool-record.md"]
+    },
+    {
+      "id":"native_entry","required":true,"status":"passed","method":"real_browser_tool","entry_kind":"native_action",
+      "steps":["选中 fixture 普通网页","调用 trigger_extension_action","读取真实页面 a11y 快照"],
+      "expected":"从工具栏 action 进入全屏取色状态，看到中文操作提示。",
+      "actual":"快照出现 application：网页取色中，移动鼠标预览，点击选色，按 Esc 取消。",
+      "artifactPaths":["picker-start.snapshot.txt","picker-start.png","tool-record.md"]
+    },
+    {
+      "id":"primary_flow","required":true,"status":"passed","method":"real_browser_tool",
+      "steps":["触发原生 action","读取真实 #solid-red DOM 边界","在扩展实际取色层按目标中心坐标移动并点击","读取结果面板"],
+      "expected":"#EF4444 及对应 RGB/HSL 精确显示。",
+      "actual":"显示 #EF4444、rgb(239, 68, 68)、hsl(0, 84%, 60%)。",
+      "artifactPaths":["solid-red-result.png","tool-record.md"]
+    },
+    {
+      "id":"reopen","required":true,"status":"passed","method":"real_browser_tool",
+      "steps":["在结果面板按 Esc 关闭","再次 trigger_extension_action","确认取色 application 重新出现"],
+      "expected":"关闭后可从原生入口开启新的取色会话。",
+      "actual":"宿主先清除，重新 action 后取色层再次出现并可选色。",
+      "artifactPaths":["picker-start.snapshot.txt","tool-record.md"]
+    },
+    {
+      "id":"escape_cancel","required":true,"status":"passed","method":"real_browser_tool",
+      "steps":["原生 action 启动取色","按真实 Escape 键","读取页面状态"],
+      "expected":"覆盖层移除，页面元素仍存在可交互。",
+      "actual":"hostPresent=false，pageStillInteractive=true。",
+      "artifactPaths":["tool-record.md"]
+    },
+    {
+      "id":"pixel_mapping","required":true,"status":"passed","method":"real_browser_tool",
+      "steps":["滚动后取 #123456 区域","取 SVG 图片 #A855F7 区域","设置真实 DPR=2 后取纯色与渐变中心"],
+      "expected":"纯色/图片精确；渐变插值每通道误差不超过 2；滚动和 DPR 不偏移。",
+      "actual":"依次得到 #123456、#A855F7、DPR2 #EF4444、渐变中心 #00807F（理论 #008080，最大通道误差 1）。",
+      "artifactPaths":["dpr2-gradient-result.png","tool-record.md"]
+    }
+  ]
+}

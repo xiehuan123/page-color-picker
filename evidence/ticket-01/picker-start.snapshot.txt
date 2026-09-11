@@ -1,0 +1,54 @@
+uid=1_0 RootWebArea "网页取色验收夹具" url="http://127.0.0.1:4311/"
+  uid=1_1 ignored
+    uid=1_2 ignored
+      uid=1_3 banner
+        uid=1_4 heading "网页取色验收夹具" level="1"
+          uid=1_5 StaticText "网页取色验收夹具"
+            uid=1_6 InlineTextBox "网页取色验收夹具"
+        uid=1_7 paragraph
+          uid=1_8 StaticText "包含纯色、渐变、图片和滚动后的已知像素。"
+            uid=1_6 InlineTextBox "包含纯色、渐变、图片和滚动后的已知像素。"
+      uid=1_9 main
+        uid=1_10 generic
+          uid=1_11 article
+            uid=1_12 strong
+              uid=1_13 StaticText "纯色 #EF4444"
+                uid=1_6 InlineTextBox "纯色 #EF4444"
+            uid=1_14 generic
+          uid=1_15 article
+            uid=1_16 strong
+              uid=1_17 StaticText "蓝到绿渐变"
+                uid=1_6 InlineTextBox "蓝到绿渐变"
+            uid=1_18 generic
+          uid=1_19 article
+            uid=1_20 strong
+              uid=1_21 StaticText "内嵌图片"
+                uid=1_6 InlineTextBox "内嵌图片"
+            uid=1_22 image "左紫右黄的测试图片" url="http://127.0.0.1:4311/pixel-grid.svg"
+        uid=1_23 generic
+          uid=1_24 LabelText
+            uid=1_25 StaticText "复制粘贴核对区"
+              uid=1_6 InlineTextBox "复制粘贴核对区"
+          uid=1_26 textbox "复制粘贴核对区"
+            uid=1_27 ignored
+            uid=1_28 generic
+        uid=1_29 ignored
+          uid=1_30 StaticText "向下滚动验证当前视口坐标"
+            uid=1_6 InlineTextBox "向下滚动验证当前视口坐标"
+        uid=1_31 generic
+          uid=1_32 strong
+            uid=1_33 StaticText "滚动目标 #123456"
+              uid=1_6 InlineTextBox "滚动目标 #123456"
+          uid=1_34 generic
+    uid=1_35 generic
+      uid=1_36 application "网页取色中，移动鼠标预览，点击选色，按 Esc 取消"
+        uid=1_37 generic
+          uid=1_38 StaticText "移动鼠标预览 · 点击选色 · Esc 取消"
+            uid=1_6 InlineTextBox "移动鼠标预览 · 点击选色 · Esc 取消"
+        uid=1_39 status atomic live="polite" relevant="additions text"
+          uid=1_40 ignored
+          uid=1_41 ignored
+            uid=1_42 ignored
+            uid=1_43 ignored
+              uid=1_44 StaticText "#F6F7FB"
+                uid=1_6 InlineTextBox "#F6F7FB"
