@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "candidate": {
-    "fingerprint_sha256": "62f193e0a7f4e7f2b98a77b711da4673d288631923a37222407411c7eb1772dc",
+    "fingerprint_sha256": "591313021bfdae10f91a2d4ef6f7d06f971f3c88303bbb152edc3d6afe504a46",
     "files": [
       {"path":"background.js","sha256":"655f43e052d24620b63b5d48f97841173537c4964a63562b280223ddefa81f93"},
       {"path":"icon/128.png","sha256":"9a51ba4154a72f2d6f3c36a1e018a6c1f3932d2748ba6b63339ce93b0ae870b2"},
@@ -10,7 +10,7 @@
       {"path":"icon/48.png","sha256":"3c09dff4ead132afcbb2c6de4ad96d07e02ba4a09a4a7f3bdaa7a69736b638d8"},
       {"path":"icon/96.png","sha256":"209c124e64afca9f22663c53ebd16c438abae7ef020e65c989daf9b618b37452"},
       {"path":"manifest.json","sha256":"d78879ea9ec3c27f166fcf62580a6c8ed4dddffddb742ccbbb08283758c7af90"},
-      {"path":"picker.js","sha256":"6cda8e496d3570844c8583186b865f86d1c8e2116590e923f8f33c420d92cc34"}
+      {"path":"picker.js","sha256":"8711b4a60c8e379bbefdce8398195a2b4923bcc95910c92e338920ed7f977a53"}
     ]
   },
   "environment": {
@@ -26,7 +26,7 @@
     "reason": "用户为三个隔离 CLI 明确选择了具备扩展安装和 action 触发能力的项目专用 Chrome DevTools MCP。",
     "user_decision": {"status":"approved","evidence_path":"user-decision.md"}
   },
-  "required_scenarios": ["install","native_entry","primary_flow","reopen","escape_cancel","pixel_mapping","review_regressions","keyboard_scroll_lock"],
+  "required_scenarios": ["install","native_entry","primary_flow","reopen","escape_cancel","pixel_mapping","review_regressions","keyboard_scroll_lock","result_keyboard"],
   "scenarios": [
     {
       "id":"install","required":true,"status":"passed","method":"real_browser_tool",
@@ -82,6 +82,13 @@
       "steps":["滚动至页面顶部","从原生 action 启动取色","按真实 PageDown 键","读取 scrollY 和取色宿主状态"],
       "expected":"取色期间页面不滚动，取色层保持活动；Esc 仍可取消。",
       "actual":"修复前稳定从 scrollY 0 变为 928；修复后 scrollY 保持 0 且 pickerPresent=true。",
+      "artifactPaths":["tool-record.md"]
+    },
+    {
+      "id":"result_keyboard","required":true,"status":"passed","method":"real_browser_tool",
+      "steps":["完成真实像素点击进入结果面板","确认关闭按钮获得焦点","按真实 Space 键","读取扩展宿主状态"],
+      "expected":"取色结束后不再吞掉按钮空格，关闭按钮按原生键盘语义移除面板。",
+      "actual":"旧候选 Space 后 panelPresent=true；修复后 Space 后 hostPresent=false，同时取色阶段 PageDown 仍锁定。",
       "artifactPaths":["tool-record.md"]
     }
   ]

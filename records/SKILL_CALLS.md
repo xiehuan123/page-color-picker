@@ -16,3 +16,5 @@
 | 2026-09-11 | `diagnosing-bugs` | 票 01 初审失败：ID 冲突与重复 action 自采 | 旧候选真实红场景 → 清理等待两帧/自持有宿主 → 同名元素保留、重复 action 得 #FFFFFF；125% zoom 得 #EF4444 | 已执行 |
 | 2026-09-12 | `code-review` | 票 01 第二轮，基线 `d66bc58`，候选 `8900059` | Standards 硬规则通过；Spec 发现键盘滚动会造成快照错位 | 已执行，Spec 待复验 |
 | 2026-09-12 | `diagnosing-bugs` | 取色中 PageDown 仍滚动页面 | 旧候选 `scrollY 0→928`；拦截滚动键后同场景保持 0 | 已执行 |
+| 2026-09-12 | `code-review` | 票 01 第三轮，基线 `d66bc58`，候选 `913d0c5` | Spec 通过；Standards 发现结果阶段 Space 被滚动键监听吞掉 | 已执行，Standards 待复验 |
+| 2026-09-12 | `diagnosing-bugs` | 结果面板关闭按钮 Space 不响应 | 旧候选 panelPresent=true；限定 `isPicking` 后 Space 触发原生按钮，hostPresent=false | 已执行 |

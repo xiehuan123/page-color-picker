@@ -35,4 +35,6 @@ Blocked by: None — can start immediately
 - 当前 candidate：`3e7726a327183e7a6ad92bb11fd2a6397971d7c27e0730566a0234f64954c28b`。
 - 当前 gate：`../../../evidence/ticket-01/gate-report-v2.json`，`gate_passed: true`。
 - 第二轮复审：Standards 硬规则通过；Spec 发现键盘滚动未锁定，旧候选真实复现 PageDown 导致 `scrollY 0 → 928`，修复后保持 0。
-- 待完成：为键盘修复重新计算当前门禁并执行最终双轴复审。
+- 第三轮复审：Spec 通过；Standards 发现结果阶段仍吞掉关闭按钮 Space。旧候选真实复现，使用 `isPicking` 生命周期修复后 Space 可关闭、取色阶段 PageDown 仍锁定。
+- 当前 candidate：`591313021bfdae10f91a2d4ef6f7d06f971f3c88303bbb152edc3d6afe504a46`。
+- 待完成：重新运行门禁、提交并做最终双轴复审。

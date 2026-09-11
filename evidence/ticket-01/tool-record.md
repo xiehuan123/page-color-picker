@@ -81,3 +81,14 @@ scrollTo(0,0) → trigger_extension_action → press_key PageDown
 ```
 
 结论：取色期间 PageUp/PageDown/Home/End/空格/方向键均被捕获阻止，Esc 仍关闭取色层。
+
+```text
+规范最终复审旧候选复现：取色点击完成后“关闭”按钮已聚焦，press_key Space。
+{"panelPresent":true}
+
+生命周期修复后：取色阶段 press_key PageDown → 点击 #solid-red → 聚焦“关闭” → press_key Space。
+点击前后读取：{"scrollY":0,"buttonFocused":"关闭","panelPresent":true}
+Space 后读取：{"hostPresent":false}
+```
+
+结论：滚动键只在 `isPicking=true` 阶段被拦截；结果面板恢复原生按钮键盘行为，Esc 在两阶段均可清理。

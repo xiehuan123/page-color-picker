@@ -110,6 +110,7 @@ function makeController(): PickerController {
         throw new Error('取色界面初始化失败');
       }
       lensContext.imageSmoothingEnabled = false;
+      let isPicking = true;
 
       const stopEvent = (event: Event): void => {
         event.preventDefault();
@@ -166,6 +167,7 @@ function makeController(): PickerController {
       const onClick = (event: MouseEvent): void => {
         const color = updatePreview(event.clientX, event.clientY);
         stopEvent(event);
+        isPicking = false;
         removeCaptureListeners();
         screenshot.width = 1;
         screenshot.height = 1;
@@ -179,7 +181,7 @@ function makeController(): PickerController {
           cleanupActiveSession?.();
           return;
         }
-        if ([' ', 'PageUp', 'PageDown', 'Home', 'End', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
+        if (isPicking && [' ', 'PageUp', 'PageDown', 'Home', 'End', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
           stopEvent(event);
         }
       };
