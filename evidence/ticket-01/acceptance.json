@@ -1,16 +1,16 @@
 {
   "schema_version": 1,
   "candidate": {
-    "fingerprint_sha256": "d56a112bb6af47f5728b09d8554b76ef194f963efe8690af37bca68a73583e9f",
+    "fingerprint_sha256": "3e7726a327183e7a6ad92bb11fd2a6397971d7c27e0730566a0234f64954c28b",
     "files": [
-      {"path":"background.js","sha256":"71137930eed16d6c7907f77a63f12b9ed275d6a2eeca4437907c0cbd1a455b39"},
+      {"path":"background.js","sha256":"655f43e052d24620b63b5d48f97841173537c4964a63562b280223ddefa81f93"},
       {"path":"icon/128.png","sha256":"9a51ba4154a72f2d6f3c36a1e018a6c1f3932d2748ba6b63339ce93b0ae870b2"},
       {"path":"icon/16.png","sha256":"58eddff80c85c1aaf6b6d0b4b65e99e3debacabe93c7083fb3ba2fa67d315236"},
       {"path":"icon/32.png","sha256":"df3d956fea6bd2a615515c31067cec039e707badb83a9501737572e45bc5e8dd"},
       {"path":"icon/48.png","sha256":"3c09dff4ead132afcbb2c6de4ad96d07e02ba4a09a4a7f3bdaa7a69736b638d8"},
       {"path":"icon/96.png","sha256":"209c124e64afca9f22663c53ebd16c438abae7ef020e65c989daf9b618b37452"},
       {"path":"manifest.json","sha256":"d78879ea9ec3c27f166fcf62580a6c8ed4dddffddb742ccbbb08283758c7af90"},
-      {"path":"picker.js","sha256":"cc88eed2fea96c9d4048ee1fb26d4867138e5b5697073c62396d8026cae82ef3"}
+      {"path":"picker.js","sha256":"89af7142366ffe0b0a9d3a13063f2dcd635d83e34a1600882e484fcefcc6c8a8"}
     ]
   },
   "environment": {
@@ -26,7 +26,7 @@
     "reason": "用户为三个隔离 CLI 明确选择了具备扩展安装和 action 触发能力的项目专用 Chrome DevTools MCP。",
     "user_decision": {"status":"approved","evidence_path":"user-decision.md"}
   },
-  "required_scenarios": ["install","native_entry","primary_flow","reopen","escape_cancel","pixel_mapping"],
+  "required_scenarios": ["install","native_entry","primary_flow","reopen","escape_cancel","pixel_mapping","review_regressions"],
   "scenarios": [
     {
       "id":"install","required":true,"status":"passed","method":"real_browser_tool",
@@ -65,10 +65,17 @@
     },
     {
       "id":"pixel_mapping","required":true,"status":"passed","method":"real_browser_tool",
-      "steps":["滚动后取 #123456 区域","取 SVG 图片 #A855F7 区域","设置真实 DPR=2 后取纯色与渐变中心"],
-      "expected":"纯色/图片精确；渐变插值每通道误差不超过 2；滚动和 DPR 不偏移。",
-      "actual":"依次得到 #123456、#A855F7、DPR2 #EF4444、渐变中心 #00807F（理论 #008080，最大通道误差 1）。",
-      "artifactPaths":["dpr2-gradient-result.png","tool-record.md"]
+      "steps":["滚动后取 #123456 区域","取 SVG 图片 #A855F7 区域","设置真实 DPR=2 后取纯色与渐变中心","在扩展 service worker 中调用真实 chrome.tabs.setZoom 为 1.25 后再次取纯色"],
+      "expected":"纯色/图片精确；渐变插值每通道误差不超过 2；滚动、DPR 和真实页面缩放不偏移。",
+      "actual":"依次得到 #123456、#A855F7、DPR2 #EF4444、渐变中心 #00807F（理论 #008080，最大通道误差 1）；125% zoom 时 DPR=2.5、视口 800×960，仍得到 #EF4444。",
+      "artifactPaths":["dpr2-gradient-result.png","review-fixes-zoom125.png","tool-record.md"]
+    },
+    {
+      "id":"review_regressions","required":true,"status":"passed","method":"real_browser_tool",
+      "steps":["在页面创建与旧实现同名的真实元素后触发 action","确认页面元素仍存在且扩展宿主独立存在","连续触发两次 action","在旧提示条位置点击并读取实际取色结果"],
+      "expected":"不删除网页同名元素；第二次截图不含第一次覆盖层。",
+      "actual":"collisionStillPresent=true；重复 action 后底层白色 header 取为 #FFFFFF，旧候选曾稳定复现 #242A38。",
+      "artifactPaths":["review-fixes-zoom125.png","tool-record.md"]
     }
   ]
 }

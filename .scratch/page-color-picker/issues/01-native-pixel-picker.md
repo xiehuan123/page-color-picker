@@ -30,6 +30,8 @@ Blocked by: None — can start immediately
 - 构建：WXT 0.21.4 正式构建 `.output/chrome-mv3`，MV3、无 host permissions，图标文件齐全。
 - 真实验收：Chrome DevTools MCP 安装 ID `lndaldlafagcjfecgngfpagpmbnabccl`；action 原生入口、纯色、滚动、图片、DPR2 渐变及 Esc 恢复通过。
 - 证据：`../../../evidence/ticket-01/acceptance.json`、`tool-record.md`、截图/快照。
-- candidate：`d56a112bb6af47f5728b09d8554b76ef194f963efe8690af37bca68a73583e9f`。
-- gate：`../../../evidence/ticket-01/gate-report.json`，`gate_passed: true`。
-- 待完成：固定提交后执行规范/规格双轴 code-review。
+- 初审：`../../../evidence/ticket-01/review-initial.md`，发现 Standards 3+1、Spec 3 项，未通过。
+- 诊断修复：旧候选真实复现同名 ID 被删、重复 action 采到 `#242A38`；修复后同名元素保留、重复 action 得 `#FFFFFF`，真实 125% zoom 仍精确得 `#EF4444`。
+- 当前 candidate：`3e7726a327183e7a6ad92bb11fd2a6397971d7c27e0730566a0234f64954c28b`。
+- 当前 gate：`../../../evidence/ticket-01/gate-report-v2.json`，`gate_passed: true`。
+- 待完成：固定修复提交后执行规范/规格双轴复审。

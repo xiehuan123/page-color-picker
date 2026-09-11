@@ -1,4 +1,6 @@
 import { formatHex, formatHsl, formatRgb, type RgbaColor } from '../domain/color';
+import { mapViewportPoint } from '../domain/pixel';
+import { PICKER_STYLES } from '../ui/picker-styles';
 
 interface StartMessage {
   type: 'PAGE_COLOR_PICKER_START';
@@ -7,6 +9,7 @@ interface StartMessage {
 
 interface PickerController {
   start(screenshot: string): Promise<void>;
+  dismiss(): void;
 }
 
 declare global {
@@ -14,7 +17,17 @@ declare global {
   var __PAGE_COLOR_PICKER_CONTROLLER__: PickerController | undefined;
 }
 
-const HOST_ID = 'page-color-picker-host';
+declare const chrome: {
+  runtime: {
+    onMessage: {
+      addListener(listener: (
+        message: unknown,
+        sender: unknown,
+        sendResponse: (response: unknown) => void,
+      ) => boolean): void;
+    };
+  };
+};
 
 function isStartMessage(value: unknown): value is StartMessage {
   if (typeof value !== 'object' || value === null) return false;
@@ -33,37 +46,19 @@ function loadScreenshot(source: string): Promise<HTMLImageElement> {
   });
 }
 
-function createStyles(): string {
-  return `
-    :host { all: initial; color-scheme: light; }
-    * { box-sizing: border-box; }
-    .stage { position: fixed; inset: 0; z-index: 2147483647; cursor: crosshair; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; pointer-events: auto; }
-    .hint { position: fixed; top: 18px; left: 50%; transform: translateX(-50%); padding: 10px 14px; border: 1px solid rgba(255,255,255,.28); border-radius: 999px; background: rgba(17,24,39,.92); color: #fff; box-shadow: 0 10px 28px rgba(0,0,0,.24); font-size: 13px; font-weight: 650; pointer-events: none; }
-    .lens { position: fixed; width: 132px; padding: 8px; border: 1px solid #D0D5DD; border-radius: 14px; background: #fff; box-shadow: 0 14px 32px rgba(16,24,40,.22); pointer-events: none; }
-    .lens canvas { display: block; width: 116px; height: 84px; border-radius: 8px; border: 1px solid #EAECF0; image-rendering: pixelated; }
-    .lens-row { display: flex; align-items: center; gap: 7px; margin-top: 7px; color: #101828; font: 700 12px/1.2 ui-monospace, SFMono-Regular, Menlo, monospace; }
-    .dot { width: 14px; height: 14px; border: 1px solid rgba(16,24,40,.18); border-radius: 50%; background: var(--picked); }
-    .panel { position: fixed; z-index: 2147483647; top: 18px; right: 18px; width: min(336px, calc(100vw - 36px)); padding: 16px; border: 1px solid #D0D5DD; border-radius: 18px; background: #fff; color: #101828; box-shadow: 0 18px 44px rgba(16,24,40,.24); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; pointer-events: auto; }
-    .panel-head { display: flex; align-items: center; gap: 12px; }
-    .swatch { width: 52px; height: 52px; flex: 0 0 auto; border: 1px solid rgba(16,24,40,.15); border-radius: 14px; background: var(--picked); }
-    h2 { margin: 0; color: #101828; font-size: 16px; line-height: 1.35; }
-    .sub { margin: 4px 0 0; color: #667085; font-size: 12px; }
-    .values { display: grid; gap: 8px; margin: 14px 0; }
-    .value { display: grid; grid-template-columns: 44px 1fr; gap: 8px; align-items: center; min-height: 36px; padding: 8px 10px; border-radius: 10px; background: #F2F4F7; }
-    .label { color: #667085; font-size: 11px; font-weight: 750; letter-spacing: .04em; }
-    code { overflow: hidden; color: #101828; font: 650 12px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace; text-overflow: ellipsis; white-space: nowrap; }
-    .actions { display: flex; justify-content: flex-end; }
-    button { min-height: 36px; padding: 0 14px; border: 1px solid #D0D5DD; border-radius: 10px; background: #fff; color: #344054; font: 650 13px/1 sans-serif; cursor: pointer; }
-    button:hover { background: #F9FAFB; }
-    button:focus-visible { outline: 3px solid rgba(37,99,235,.28); outline-offset: 2px; }
-  `;
+async function waitForCleanFrame(): Promise<void> {
+  await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+  await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
 }
 
 function samplePixel(context: CanvasRenderingContext2D, screenshot: HTMLCanvasElement, clientX: number, clientY: number): { color: RgbaColor; bitmapX: number; bitmapY: number } {
-  const scaleX = screenshot.width / window.innerWidth;
-  const scaleY = screenshot.height / window.innerHeight;
-  const bitmapX = Math.max(0, Math.min(screenshot.width - 1, Math.floor(clientX * scaleX)));
-  const bitmapY = Math.max(0, Math.min(screenshot.height - 1, Math.floor(clientY * scaleY)));
+  const mapped = mapViewportPoint(
+    { x: clientX, y: clientY },
+    { width: window.innerWidth, height: window.innerHeight },
+    { width: screenshot.width, height: screenshot.height },
+  );
+  const bitmapX = mapped.x;
+  const bitmapY = mapped.y;
   const pixel = context.getImageData(bitmapX, bitmapY, 1, 1).data;
   return {
     color: { r: pixel[0]!, g: pixel[1]!, b: pixel[2]!, a: pixel[3]! / 255 },
@@ -76,9 +71,11 @@ function makeController(): PickerController {
   let cleanupActiveSession: (() => void) | undefined;
 
   return {
+    dismiss(): void {
+      cleanupActiveSession?.();
+    },
     async start(screenshotSource: string): Promise<void> {
       cleanupActiveSession?.();
-      document.getElementById(HOST_ID)?.remove();
       const image = await loadScreenshot(screenshotSource);
       const screenshot = document.createElement('canvas');
       screenshot.width = image.naturalWidth;
@@ -88,11 +85,11 @@ function makeController(): PickerController {
       context.drawImage(image, 0, 0);
 
       const host = document.createElement('div');
-      host.id = HOST_ID;
+      host.dataset.pageColorPickerHost = 'true';
       host.style.cssText = 'position:fixed;inset:0;z-index:2147483647;pointer-events:none';
       const shadow = host.attachShadow({ mode: 'open' });
       const style = document.createElement('style');
-      style.textContent = createStyles();
+      style.textContent = PICKER_STYLES;
       shadow.append(style);
       document.documentElement.append(host);
 
@@ -170,6 +167,9 @@ function makeController(): PickerController {
         const color = updatePreview(event.clientX, event.clientY);
         stopEvent(event);
         removeCaptureListeners();
+        screenshot.width = 1;
+        screenshot.height = 1;
+        image.src = '';
         showResult(color);
       };
 
@@ -200,14 +200,25 @@ function makeController(): PickerController {
 export default defineUnlistedScript(() => {
   if (!globalThis.__PAGE_COLOR_PICKER_CONTROLLER__) {
     globalThis.__PAGE_COLOR_PICKER_CONTROLLER__ = makeController();
-    browser.runtime.onMessage.addListener(async (message: unknown) => {
-      if (!isStartMessage(message)) return undefined;
-      try {
-        await globalThis.__PAGE_COLOR_PICKER_CONTROLLER__?.start(message.screenshot);
-        return { ok: true };
-      } catch (error) {
-        return { ok: false, error: error instanceof Error ? error.message : '未知错误' };
+    chrome.runtime.onMessage.addListener((message: unknown, _sender, sendResponse) => {
+      if (typeof message === 'object' && message !== null && (message as { type?: unknown }).type === 'PAGE_COLOR_PICKER_PREPARE_CAPTURE') {
+        globalThis.__PAGE_COLOR_PICKER_CONTROLLER__?.dismiss();
+        (async () => {
+          await waitForCleanFrame();
+          sendResponse({ ok: true });
+        })();
+        return true;
       }
+      if (!isStartMessage(message)) return false;
+      (async () => {
+        try {
+          await globalThis.__PAGE_COLOR_PICKER_CONTROLLER__?.start(message.screenshot);
+          sendResponse({ ok: true });
+        } catch (error) {
+          sendResponse({ ok: false, error: error instanceof Error ? error.message : '未知错误' });
+        }
+      })();
+      return true;
     });
   }
 });

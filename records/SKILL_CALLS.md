@@ -12,3 +12,5 @@
 | 2026-09-11 | `tdd` | 颜色领域公开 seam | `domain/color.test.ts` 先红后绿，已知 HEX/RGB/HSL 与 HSL→RGBA 行为通过 | 已执行（票 01） |
 | 2026-09-11 | `implement` | `issues/01-native-pixel-picker.md` | WXT 正式构建、真实 action → 截图 → 页面像素 → 结果；门禁通过 | 已执行（票 01） |
 | 2026-09-11 | `diagnosing-bugs` | WXT 脚手架 Node 引擎失败、TDD 契约失败 | `diagnostics/scaffold-node-engine.md`；使用已有 Node 22；公开接口与正确 HSL 基准修复并复验 | 已执行 |
+| 2026-09-11 | `code-review` | 票 01，基线 `d66bc58`，候选 `b9f7b28`，正式规格/票 01 | 两个独立代理并行输出 Standards 3 硬违规 + 1 判断项、Spec 3 项；原场景复现、修复并复验 | 初审已执行，等待复审 |
+| 2026-09-11 | `diagnosing-bugs` | 票 01 初审失败：ID 冲突与重复 action 自采 | 旧候选真实红场景 → 清理等待两帧/自持有宿主 → 同名元素保留、重复 action 得 #FFFFFF；125% zoom 得 #EF4444 | 已执行 |

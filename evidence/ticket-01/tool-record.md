@@ -46,3 +46,27 @@ evaluate_script navigator
 ```
 
 DOM 操作只对扩展实际注入的 Shadow DOM 取色层派发真实指针/点击事件；未注入或替换 Chrome API，页面快照来自 `chrome.tabs.captureVisibleTab`。
+
+## 审查失败复现与复验
+
+```text
+旧候选同名 ID 复现：页面先创建 id=page-color-picker-host 且 data-fixture-collision=true 的真实元素，再触发 action。
+{"collisionStillPresent":false,"pickerHosts":1}
+
+旧候选重复 action 复现：连续 trigger_extension_action 两次，在旧提示条所在 (500,30) 点击。
+{"label":"已选颜色 #242A38"}（底层 header 应为 #FFFFFF）
+
+修复后 reload_extension + reload page，重新建立同名 ID 场景并触发 action。
+{"collisionStillPresent":true,"pickerPresent":true}
+
+修复后连续 trigger_extension_action 两次，在 (400,30) 点击。
+{"dpr":2.5,"viewport":[800,960],"label":"已选颜色 #FFFFFF"}
+
+evaluate_script serviceWorkerId=sw-3 使用真实 chrome.tabs.setZoom(activeTab, 1.25)
+{"tabId":922033303,"zoom":1.25}
+页面实际指标：{"dpr":2.5,"inner":[800,960]}
+触发 action 后点击真实 #solid-red 中心：
+{"dpr":2.5,"inner":[800,960],"x":207,"y":298,"label":"已选颜色 #EF4444"}
+```
+
+结论：同名页面元素保留；覆盖层清理后等待两帧再截图，重复 action 不再自采；真实 125% 页面缩放 + DPR2 映射精确。
