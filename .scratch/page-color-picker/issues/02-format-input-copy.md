@@ -30,3 +30,5 @@ Blocked by: 01 — 从原生 action 完成真实页面像素取色
 - Chrome DevTools MCP 从原生 action 进入结果面板；三种格式均真实复制后粘贴通过；合法颜色名/HSL 与非法恢复通过。
 - 诊断并确认 headless 环境粘贴键为 `Shift+Insert`；未增加 `clipboardRead` 等额外权限。
 - 正在进行双轴独立 code-review。
+- 初审 Standards Pass；Spec 发现 HEX/RGB 输入与窄视口证据缺口，补验后又发现 HSL 在窄屏省略。
+- 窄屏改为两列格式行并隐藏重复“复制”字样；真实 288×512 CSS viewport 下全文、复制粘贴与非法恢复通过，等待最终复审。

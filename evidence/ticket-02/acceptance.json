@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "candidate": {
-    "fingerprint_sha256": "6e0f39e15a7cbb525833c310f7f00d84b7691a0d0c600246755d71ee5dd39220",
+    "fingerprint_sha256": "d1bc9ed60341dcba90c0984a8310a81df2948d455af332db0e1c23d6bc647812",
     "files": [
       {"path":"background.js","sha256":"655f43e052d24620b63b5d48f97841173537c4964a63562b280223ddefa81f93"},
       {"path":"icon/128.png","sha256":"9a51ba4154a72f2d6f3c36a1e018a6c1f3932d2748ba6b63339ce93b0ae870b2"},
@@ -10,7 +10,7 @@
       {"path":"icon/48.png","sha256":"3c09dff4ead132afcbb2c6de4ad96d07e02ba4a09a4a7f3bdaa7a69736b638d8"},
       {"path":"icon/96.png","sha256":"209c124e64afca9f22663c53ebd16c438abae7ef020e65c989daf9b618b37452"},
       {"path":"manifest.json","sha256":"d78879ea9ec3c27f166fcf62580a6c8ed4dddffddb742ccbbb08283758c7af90"},
-      {"path":"picker.js","sha256":"16168d3d04634ac410e7f375005336cf8027fdddfb97faf4166ff94988b6dbeb"}
+      {"path":"picker.js","sha256":"0fc206e453d036e84507b804d9bbbbff4a62f93fb47f68c999f6541b8e22405c"}
     ]
   },
   "environment": {
@@ -44,7 +44,7 @@
       "id":"primary_flow","required":true,"status":"passed","method":"real_browser_tool",
       "steps":["由原生 action 进入取色","按真实 #solid-red DOM 中心坐标操作扩展实际取色层","读取结果"],
       "expected":"当前候选仍能从网页像素生成三格式结果。","actual":"#EF4444、rgb(239, 68, 68)、hsl(0, 84%, 60%) 精确显示。",
-      "artifactPaths":["reopen-primary-flow.json","tool-record.md"]
+      "artifactPaths":["narrow-fix-primary-flow-v2.json","tool-record.md"]
     },
     {
       "id":"reopen","required":true,"status":"passed","method":"real_browser_tool",
@@ -56,7 +56,7 @@
       "id":"format_copy_paste","required":true,"status":"passed","method":"real_browser_tool",
       "steps":["分别点击 HEX/RGB/HSL 复制按钮","清空并聚焦 fixture 普通输入框","以 Shift+Insert 从真实浏览器剪贴板粘贴","读取输入框值"],
       "expected":"三种文本与面板逐字相同。","actual":"#0080FF、rgb(0, 128, 255)、hsl(210, 100%, 50%) 全部逐字匹配，写入方法均为 clipboard-api。",
-      "artifactPaths":["clipboard-hex-pass.json","clipboard-rgb-pass-v2.json","clipboard-hsl-pass-v2.json","tool-record.md"]
+      "artifactPaths":["clipboard-hex-pass.json","clipboard-rgb-pass-v2.json","clipboard-hsl-pass-v2.json","narrow-fixed-copy-hsl-v2.json","tool-record.md"]
     },
     {
       "id":"valid_conversion","required":true,"status":"passed","method":"real_browser_tool",
@@ -68,13 +68,13 @@
       "id":"invalid_recovery","required":true,"status":"passed","method":"real_browser_tool",
       "steps":["已有 #663399 结果时输入 definitely-not-a-color","提交并读取状态和结果"],
       "expected":"中文错误提示出现且原结果不变。","actual":"提示“无法识别这个颜色，请检查输入”，HEX 仍为 #663399。",
-      "artifactPaths":["conversion-invalid-preserves.json","invalid-color-preserved.snapshot.txt","invalid-color-preserved.png","tool-record.md"]
+      "artifactPaths":["conversion-invalid-preserves.json","narrow-fixed-invalid.json","invalid-color-preserved.snapshot.txt","invalid-color-preserved.png","tool-record.md"]
     },
     {
       "id":"small_viewport","required":true,"status":"passed","method":"real_browser_tool",
       "steps":["emulate 360×640×2 设备视口，同时保留真实页面 zoom=1.25","截取当前结果面板","读取面板与输入/按钮几何"],
-      "expected":"面板和操作控件在窄视口内完整可见。","actual":"实际 CSS viewport 288×512；面板边界 10..278 × 10..372.2，全部在视口内；输入宽 170.8，按钮宽 55.6。",
-      "artifactPaths":["narrow-360x640.png","narrow-layout.json","tool-record.md"]
+      "expected":"面板、操作控件及格式全文在窄视口内完整可见。","actual":"实际 CSS viewport 288×512；面板在视口内；HSL 文本 hsl(45, 100%, 51%) 的 scrollWidth=clientWidth，text-overflow=clip，无截断。",
+      "artifactPaths":["narrow-fixed-360x640.png","narrow-fixed-text.json","tool-record.md"]
     }
   ]
 }

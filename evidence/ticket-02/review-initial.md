@@ -6,7 +6,7 @@
 
 - Hard violations：0。
 - Tests：Vitest 2 文件 / 4 测试通过；TypeScript 编译通过。
-- Judgment call：`picker.ts` 与 `result-panel.ts` 各自重复声明三格式列表；不阻止本票，历史模块拆分时消除重复源。
+- Judgment call：`result-panel.ts` 内两处重复声明三格式列表；不阻止本票，历史模块拆分时消除重复源。
 
 ## Spec — Fail（证据缺口）
 

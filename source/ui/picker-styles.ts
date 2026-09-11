@@ -34,5 +34,10 @@ export const PICKER_STYLES = `
   .status { min-height: 18px; margin: 10px 0 0; color: #667085; font-size: 12px; }
   .status[data-tone="success"] { color: #067647; }
   .status[data-tone="error"] { color: #B42318; }
-  @media (max-width: 420px) { .panel { top: 10px; right: 10px; width: calc(100vw - 20px); max-height: calc(100vh - 20px); } }
+  @media (max-width: 420px) {
+    .panel { top: 10px; right: 10px; width: calc(100vw - 20px); max-height: calc(100vh - 20px); }
+    .value-button { grid-template-columns: 40px minmax(0,1fr); }
+    .value-button code { overflow: visible; text-overflow: clip; white-space: normal; overflow-wrap: anywhere; }
+    .copy-label { display: none; }
+  }
 `;

@@ -29,6 +29,11 @@ fill_form value="rgb(255, 193, 7)"; click 转换
 emulate viewport=360x640x2（service worker 中真实页面 zoom 仍为 1.25）
 实际 CSS viewport=[288,512]；panel 全部位于 [10,10]..[278,372.2]；输入宽 170.8、按钮宽 55.6；pass=true。
 
+Spec 复审发现窄屏 HSL 实际呈省略号，修复后重新构建并 reload_extension：
+原生 action → 真实 #solid-red 像素仍得 #EF4444；输入 rgb(255, 193, 7) 后收窄到同一视口。
+HSL 全文为 hsl(45, 100%, 51%)，代码节点 scrollWidth=clientWidth，text-overflow=clip，完全位于面板内；截图 narrow-fixed-360x640.png。
+在修复候选再次点击 HSL 复制并于普通页面 Shift+Insert，粘贴值逐字为 hsl(45, 100%, 51%)；非法输入仍保留 #FFC107 并显示中文错误。
+
 fill_form value="definitely-not-a-color"; click 转换
 {"hex":"#663399","status":"无法识别这个颜色，请检查输入","preserved":true,"pass":true}
 
